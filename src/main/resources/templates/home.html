@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Home</title>
@@ -10,8 +10,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div style="margin:auto">
-        <button onclick="window.location.href='/login'" >Log In</button>
+    <div class="login-register-container">
+        <div class="row">
+            <div class="col text-center" style="padding: 10px">
+                <button class="btn btn-primary" onclick="window.location.href='/login'" >Log In</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center" style="padding: 10px">
+                <button class="btn btn-secondary" onclick="window.location.href='/register'" >Register</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
