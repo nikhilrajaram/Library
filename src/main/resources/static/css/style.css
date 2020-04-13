@@ -13,3 +13,12 @@
     padding: 20px;
     width: 400px;
 }
+
+.request-help-container {
+    background-color: coral;
+    width:  350px;
+    margin: 25px auto;
+    border-radius: 10px;
+    padding: 20px;
+
+}

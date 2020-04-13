@@ -59,6 +59,18 @@ public class HomeController {
         return "home";
     }
 
+    /** Handle request help from user*/
+  /**  @GetMapping("/requestHelp")
+    public String requestForm(Model model) {
+        . . .
+        return "requestHelp";
+    }
+
+    @PostMapping("/requestHelp")
+    public String requestSubmit(@ModelAttribute ...) {
+        return "requestHelp";
+    } */
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
