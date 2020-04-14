@@ -12,16 +12,22 @@
 </head>
 <body>
 <div class="request-help-container">
-    <h2>Write your question</h2>
+    <h2>Request Help</h2>
         <form action="requestHelp" method="post">
         <div class="form">
             <table>
                 <tr>
-                    <td> Enter your user id</td>
-                    <td><input id="uid" name="uid"></td>
-                    <!--  Ask user to input content -->
-                    <td><input type="submit" value="Submit"></td>
+                      <td> Enter your user id </td>
+                      <td><input id="uid" name="uid"></td>
                 </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td> Write your concern </td>
+                        <td><input id="content" size="50"></td>
+                        <td><input type="submit" value="Submit"></td>
+                <tr>
             </table>
         </div>
     </form>
