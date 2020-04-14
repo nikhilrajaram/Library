@@ -42,7 +42,7 @@ public class HomeController {
             return "login";
         }
 
-        return "home";
+        return "home-auth";
     }
 
     @RequestMapping(value = "/register")
@@ -56,7 +56,7 @@ public class HomeController {
         user.setUid(userDataDAO.getNewUid());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDataDAO.registerUser(user);
-        return "home";
+        return "login";
     }
 
     @Bean
