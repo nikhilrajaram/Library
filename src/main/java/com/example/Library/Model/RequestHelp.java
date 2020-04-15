@@ -8,7 +8,9 @@ public class RequestHelp {
     private Integer uid;
     private String content;
 
-    public RequestHelp(String content, User user){
+    public RequestHelp(){}
+
+     RequestHelp(String content, User user){
         this.content = content;
         this.uid = user.getUid();
     }

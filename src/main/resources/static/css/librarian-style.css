@@ -1,26 +1,10 @@
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-
-}
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-h2 {
-    position: absolute;
-    top:20px;
-    left:50px;
-}
-
-.item-table {
+.table-striped {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 50%;
+    width: 40%;
     position: absolute;
     top: 75px;
-    left: 50px;
+    left: 10px;
 }
 
 
@@ -35,7 +19,7 @@ h2 {
     margin: 10px 3px;
     cursor: pointer;
     position: relative;
-    top: 75px;
+    top: 300px;
     left: 1000px;
     display: block;
 
