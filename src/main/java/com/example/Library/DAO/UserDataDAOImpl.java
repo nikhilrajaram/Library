@@ -2,8 +2,6 @@ package com.example.Library.DAO;
 
 import com.example.Library.Model.User;
 
-import javax.sql.DataSource;
-
 public interface UserDataDAOImpl {
     /**
      * Query user database and check if an email is already registered

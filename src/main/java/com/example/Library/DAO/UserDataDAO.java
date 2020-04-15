@@ -7,9 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-import java.sql.Types;
-
 @Service
 public class UserDataDAO implements UserDataDAOImpl {
 
