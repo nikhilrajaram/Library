@@ -1,10 +1,9 @@
 package com.example.Library.Controller;
 
+import com.example.Library.Config.PasswordEncoderConfig;
 import com.example.Library.DAO.UserDataDAO;
 import com.example.Library.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,10 +56,5 @@ public class HomeController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDataDAO.registerUser(user);
         return "login";
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
