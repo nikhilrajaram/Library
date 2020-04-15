@@ -22,7 +22,7 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-primary" style="width:100%">Log In</button>
             </div>
-            <div class="alert alert-primary" role="alert" th:if="${status} == -1">
+            <div class="alert alert-primary" role="alert" th:if="${loginAttempt} == -1">
                 Login failed. Please retry.
             </div>
         </form>

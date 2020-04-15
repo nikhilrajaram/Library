@@ -28,7 +28,7 @@ public class HomeController {
     @RequestMapping("/login")
     public String login(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("status", 0);
+        model.addAttribute("loginAttempt", 0);
         return "login";
     }
 
@@ -38,7 +38,7 @@ public class HomeController {
 
         if (!passwordEncoder.matches(user.getPassword(), bcryptPass)) {
             model.addAttribute("user", new User());
-            model.addAttribute("status", -1);
+            model.addAttribute("loginAttempt", -1);
             return "login";
         }
 
