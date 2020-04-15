@@ -14,7 +14,7 @@ h2 {
     left:50px;
 }
 
-.item-table table {
+.item-table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 50%;
@@ -24,7 +24,7 @@ h2 {
 }
 
 
-.btn-group-vertical button{
+.btn-group-vertical button {
     background-color: white;
     color: black;
     border: 2px solid #008CBA;
@@ -35,7 +35,7 @@ h2 {
     margin: 10px 3px;
     cursor: pointer;
     position: relative;
-    top: 65px;
+    top: 75px;
     left: 1000px;
     display: block;
 
