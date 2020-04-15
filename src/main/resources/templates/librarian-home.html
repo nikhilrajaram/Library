@@ -2,103 +2,54 @@
 	<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>LibrarianHomePage</title>
+		<title>Home</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" href="/css/style.css" type="text/css">
+		<link rel="stylesheet" href="/css/librarian-style.css" type="text/css">
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="  sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-	</head>
-	<head>
-	<style>
-	table {
-	  font-family: arial, sans-serif;
-	  border-collapse: collapse;
-	  width: 50%;
-	}
-
-	td, th {
-	  border: 1px solid #dddddd;
-	  text-align: left;
-	  padding: 8px;
-	  
-	 }
-
-	 h2 {
-	 	position: absolute;
-	 	top:20px;
-	 	left:50px;
-	 }
-
-	 table {
-		position: absolute;
-		top: 75px;
-		left: 50px;
-	}
-
-	tr:nth-child(even) {
-	  background-color: #dddddd;
-	}
-	.btn-group-vertical button{
-	  background-color: white;
-	  color: black; 
-	  border: 2px solid #008CBA;
-	  padding: 10px 30px;
-	  text-align: left;
-	  text-decoration: none;
-	  font-size: 16px;
-	  margin: 10px 3px;
-	  cursor: pointer;
-	  position: relative;
-	  top: 65px;
-	  left: 1000px;
-	  display: block;
-	  
-}
-
-	</style>
 	</head>
 
-	<body>
-		
-		<h2>Item List</h2>
+	<body id="librarian-page">
 
-		<table id="item-table">
-		  <tr>
-			<th>Item Name</th>
-			<th>Item ID</th>
-			<th>Status</th>
-			<th>Action</th>
-		  </tr>
-		  <!-- List items here -->
-		  <tr>
-			<td> </td>
-			<td> </td>
-			<td> </td>
-			<td><button type="button" onclick="alert('Item Removed!')">Remove</button></td>
-		  </tr>
-		  <tr>
-			<td> </td>
-			<td> </td>
-			<td> </td>
-			<td><button type="button" onclick="alert('Item Removed!')">Remove</button></td>
-		  </tr>
-		    <tr>
-			<td> </td>
-			<td> </td>
-			<td> </td>
-			<td><button type="button" onclick="alert('Item Removed!')">Remove</button></td>
-		  </tr>
-		</table>
-		<div/>
-		  <tr>
-		  	<div class="btn-group-vertical">
-				  <button>Add Item</button>
-				  <button>Check Requests</button>
-				  <button>Sign out</button>
-			
-			
-		  </tr>
-</body>
+		<div class="librarian-home-container">
+			<h2>Item List</h2>
+
+			<table class="item-table">
+			  <tr>
+				<th>Item Name</th>
+				<th>Item ID</th>
+				<th>Status</th>
+				<th>Action</th>
+			  </tr>
+			  <!-- List items here -->
+			  <tr>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td><button class="remove" type="button" onclick="alert('Item Removed!')">Remove</button></td>
+			  </tr>
+			  <tr>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td><button class="remove" type="button" onclick="alert('Item Removed!')">Remove</button></td>
+			  </tr>
+				<tr>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td><button class="remove" type="button" onclick="alert('Item Removed!')">Remove</button></td>
+			  </tr>
+			</table>
+			</div>
+
+				<div class="btn-group-vertical">
+					  <button>Add Item</button>
+					  <button>Check Requests</button>
+					  <button>Sign out</button>
+
+			  </tr>
+		</div>
+	</body>
 </html>

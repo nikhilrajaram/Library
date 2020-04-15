@@ -1,0 +1,43 @@
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+h2 {
+    position: absolute;
+    top:20px;
+    left:50px;
+}
+
+.item-table table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    position: absolute;
+    top: 75px;
+    left: 50px;
+}
+
+
+.btn-group-vertical button{
+    background-color: white;
+    color: black;
+    border: 2px solid #008CBA;
+    padding: 10px 30px;
+    text-align: left;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 10px 3px;
+    cursor: pointer;
+    position: relative;
+    top: 65px;
+    left: 1000px;
+    display: block;
+
+
+}
