@@ -11,12 +11,6 @@ public interface UserDataDAOImpl {
     Boolean isEmailAvailable(String email);
 
     /**
-     * Fetches a new UID for registering a new user
-     * @return UID
-     */
-    Integer getNewUid();
-
-    /**
      * Set user UID and add information to user database
      * @param user user to add to database
      * @return status of registration process (success or failure)
