@@ -1,18 +1,23 @@
 package com.example.Library.Model;
 
-import com.example.Library.Model.User;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 public class RequestHelp {
 
-    private Integer uid;
+    private String email;
     private String content;
 
     public RequestHelp(){}
 
-     RequestHelp(String content, User user){
+    RequestHelp(String email, String content) {
+        this.email = email;
         this.content = content;
-        this.uid = user.getUid();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getContent() {
@@ -22,6 +27,4 @@ public class RequestHelp {
     public void setContent(String content) {
         this.content = content;
     }
-
-    public Integer getUserId(){ return uid; }
 }
