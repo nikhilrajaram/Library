@@ -10,19 +10,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="login-container">
-    <h2>Register</h2>
-    <form action="#" th:action="@{/register}" th:object="${user}" method="post">
-        <div class="form-group">
-            <input type="email" class="form-control" id="user-email" placeholder="Email Address" th:field="*{email}" />
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control" id="user-password" placeholder="Password" th:field="*{password}" />
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary" style="width:100%">Register</button>
-        </div>
-    </form>
-</div>
+    <div th:replace="../static/html/navbar :: navbar-login-register"></div>
+    <div class="login-container">
+        <h2>Register</h2>
+        <form action="#" th:action="@{/register}" th:object="${user}" method="post">
+            <div class="form-group">
+                <input type="email" class="form-control" id="user-email" placeholder="Email Address" th:field="*{email}" />
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="user-password" placeholder="Password" th:field="*{password}" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" style="width:100%">Register</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
