@@ -3,8 +3,6 @@ package com.example.Library.Controller;
 import com.example.Library.DAO.UserDataDAO;
 import com.example.Library.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +26,7 @@ public class HomeController {
     @RequestMapping("/login")
     public String login(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("status", 0);
+        model.addAttribute("loginAttempt", 0);
         return "login";
     }
 
@@ -38,11 +36,11 @@ public class HomeController {
 
         if (!passwordEncoder.matches(user.getPassword(), bcryptPass)) {
             model.addAttribute("user", new User());
-            model.addAttribute("status", -1);
+            model.addAttribute("loginAttempt", -1);
             return "login";
         }
 
-        return "home";
+        return "home-auth";
     }
 
     @RequestMapping(value = "/register")
@@ -56,11 +54,6 @@ public class HomeController {
         user.setUid(userDataDAO.getNewUid());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDataDAO.registerUser(user);
-        return "home";
-    }
-    
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return "login";
     }
 }
