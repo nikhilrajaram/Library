@@ -11,6 +11,13 @@ public interface UserDataDAOImpl {
     Boolean isEmailAvailable(String email);
 
     /**
+     * Query user database and return the corresponding user object
+     * @param email email of user of consideration
+     * @return serialized user object corresponding to email query
+     */
+    User getUser(String email);
+
+    /**
      * Set user UID and add information to user database
      * @param user user to add to database
      * @return status of registration process (success or failure)
