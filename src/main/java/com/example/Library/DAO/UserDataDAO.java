@@ -31,7 +31,7 @@ public class UserDataDAO implements UserDataDAOImpl {
     public Boolean isEmailAvailable(String email) {
         Object[] args = new Object[1];
         args[0] = email;
-        return template.query(QUERY_EMAIL, args, (ResultSetExtractor<Boolean>) rs -> rs.next());
+        return template.query(QUERY_EMAIL, args, (ResultSetExtractor<Boolean>) rs -> !rs.next());
     }
 
     @Override
