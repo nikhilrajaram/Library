@@ -13,22 +13,15 @@
 <body>
 <div class="request-help-container">
     <h2>Request Help</h2>
-        <form action="requestHelp" method="post">
-        <div class="form">
-            <table>
-                <tr>
-                      <td> Enter your user id </td>
-                      <td><input id="uid" name="uid"></td>
-                </tr>
-            </table>
-
-            <table>
-                <tr>
-                    <td> Write your concern </td>
-                        <td><input id="content" size="50"></td>
-                        <td><input type="submit" value="Submit"></td>
-                <tr>
-            </table>
+    <form action="#" th:action="@{/requestHelp}" th:object="${request}" method="post">
+        <div class="form-group">
+              <input type="email" id="email" placeholder="Email Address" th:field="*{email}" />
+        </div>
+        <div class="form-group">
+              <input type="text" id="content" th:field="*{content}" />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" style="width:100%">Submit Concern</button>
         </div>
     </form>
 </div>
