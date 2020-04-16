@@ -61,7 +61,9 @@
                 </li>
             </ul>
         </div>
-        <button class="btn btn-success-info btn-nav" style="margin: 10px" onclick="window.location.href='#'" >Sign Out</button>
+        <form action="#" th:action="@{/logout}" method="post">
+            <button class="btn btn-success-info btn-nav" style="margin: 10px" onclick="window.location.href='/logout'" >Sign Out</button>
+        </form>
         <button class="btn btn-success-info btn-nav" style="margin: 10px" onclick="window.location.href='/requestHelp'">Ask a librarian</button>
     </nav>
 </body>
