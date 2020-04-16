@@ -3,6 +3,11 @@ package com.example.Library.Controller;
 import com.example.Library.DAO.UserDataDAO;
 import com.example.Library.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +23,9 @@ public class HomeController {
     @Autowired
     private UserDataDAO userDataDAO;
 
+    @Autowired
+    AuthenticationManager authenticationManager;
+
     @RequestMapping("/")
     public String home() {
         return "home";
@@ -32,12 +40,17 @@ public class HomeController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String handleLogin(@ModelAttribute User user, Model model) {
-        String bcryptPass = userDataDAO.getBcryptPassword(user);
+        UsernamePasswordAuthenticationToken authReq
+                = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+        Authentication auth = authenticationManager.authenticate(authReq);
+        SecurityContext sc = SecurityContextHolder.getContext();
+        sc.setAuthentication(auth);
 
-        if (!passwordEncoder.matches(user.getPassword(), bcryptPass)) {
-            model.addAttribute("user", new User());
+        if (!sc.getAuthentication().isAuthenticated()) {
             model.addAttribute("loginAttempt", -1);
             return "login";
+
+            // TODO: investigate why view not rendered correctly (error message doesn't show up)
         }
 
         return "home-auth";
@@ -49,10 +62,15 @@ public class HomeController {
         return "register";
     }
 
+    @RequestMapping(value = "/test")
+    public String register() {
+        return "register";
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String handleRegistration(@ModelAttribute User user) {
-        user.setUid(userDataDAO.getNewUid());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEnabled(true);
         userDataDAO.registerUser(user);
         return "login";
     }

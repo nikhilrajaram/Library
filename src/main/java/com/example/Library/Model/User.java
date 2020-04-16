@@ -1,26 +1,20 @@
 package com.example.Library.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
     @Id
-    @GeneratedValue
-    private Integer uid;
     private String email;
     private String password;
+    private boolean enabled;
 
     public User() {}
 
-    User(String email, String password) {
+    public User(String email, String password, boolean enabled) {
         this.email = email;
         this.password = password;
-    }
-
-    public Integer getUid() {
-        return this.uid;
+        this.enabled = enabled;
     }
 
     public String getEmail() {
@@ -31,15 +25,19 @@ public class User {
         return this.password;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
