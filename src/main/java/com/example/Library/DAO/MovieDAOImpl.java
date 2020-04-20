@@ -17,5 +17,5 @@ public interface MovieDAOImpl {
      * @param movies list of movies to add
      * @return list of statuses for each item
      */
-    List<Boolean> batchAddBooks(List<Movie> movies);
+    List<Boolean> batchAddMovie(List<Movie> movies);
 }

@@ -38,7 +38,7 @@ public class MovieDAO implements MovieDAOImpl {
     }
 
     @Override
-    public List<Boolean> batchAddBooks(List<Movie> movies) {
+    public List<Boolean> batchAddMovie(List<Movie> movies) {
         List<Boolean> statuses = new ArrayList<>();
         int[] rowsAffected = template.batchUpdate(INSERT_MOVIE, new BatchPreparedStatementSetter() {
             @Override
