@@ -6,7 +6,7 @@ import javax.persistence.Id;
 @Entity
 public class Item {
     @Id
-    private Integer id;
+    private Integer itemId;
     private String type;
     private Integer nAvailable;
     private Integer nCheckedOut;
@@ -14,12 +14,12 @@ public class Item {
 
     public Item() {}
 
-    public Integer getId() {
-        return id;
+    public Integer getItemId() {
+        return itemId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 
     public String getType() {
