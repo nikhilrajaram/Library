@@ -14,8 +14,9 @@ public interface ItemDataDAOImpl {
     Boolean addItem(Item item);
 
     /**
-     * Add items to item table in batches
+     * Add items to items table in batches
      * @param items list of items to add
+     * @return list of statuses for each item
      */
     List<Boolean> batchAddItems(List<Item> items);
 
