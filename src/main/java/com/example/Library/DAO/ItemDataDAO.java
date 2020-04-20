@@ -3,9 +3,14 @@ package com.example.Library.DAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import com.example.Library.Model.Item;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class ItemDataDAO implements ItemDataDAOImpl {
@@ -28,7 +33,7 @@ public class ItemDataDAO implements ItemDataDAOImpl {
     }
 
     @Override
-    public Boolean addItem(Item item){
+    public Boolean addItem(Item item) {
         Object[] args = new Object[5];
         args[0] = item.getId();
         args[1] = item.getType();
@@ -43,6 +48,25 @@ public class ItemDataDAO implements ItemDataDAOImpl {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public void batchAddItems(List<Item> items) {
+        template.batchUpdate(INSERT_ITEMNAME, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                ps.setInt(1, items.get(i).getId());
+                ps.setString(2, items.get(i).getType());
+                ps.setInt(3, items.get(i).getnAvailable());
+                ps.setInt(4, items.get(i).getnCheckedOut());
+                ps.setBoolean(5, items.get(i).getDigital());
+            }
+
+            @Override
+            public int getBatchSize() {
+                return 50;
+            }
+        });
     }
 
     @Override
