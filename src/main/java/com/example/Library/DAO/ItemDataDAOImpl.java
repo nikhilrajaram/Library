@@ -17,7 +17,7 @@ public interface ItemDataDAOImpl {
      * Add items to item table in batches
      * @param items list of items to add
      */
-    void batchAddItems(List<Item> items);
+    List<Boolean> batchAddItems(List<Item> items);
 
     /**
      * Remove an item from items table

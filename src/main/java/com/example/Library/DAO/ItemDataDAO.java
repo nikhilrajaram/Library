@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,8 +53,9 @@ public class ItemDataDAO implements ItemDataDAOImpl {
     }
 
     @Override
-    public void batchAddItems(List<Item> items) {
-        template.batchUpdate(INSERT_ITEMNAME, new BatchPreparedStatementSetter() {
+    public List<Boolean> batchAddItems(List<Item> items) {
+        List<Boolean> statuses = new ArrayList<>();
+        int[] rowsAffected = template.batchUpdate(INSERT_ITEMNAME, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 ps.setInt(1, items.get(i).getItemId());
@@ -68,6 +70,12 @@ public class ItemDataDAO implements ItemDataDAOImpl {
                 return BATCH_SIZE;
             }
         });
+
+        for (int nAffected : rowsAffected) {
+            statuses.add(nAffected == 1);
+        }
+
+        return statuses;
     }
 
     @Override
