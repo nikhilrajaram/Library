@@ -13,7 +13,7 @@ import java.util.List;
 
 public class BookDAO implements BookDAOImpl {
 
-    private final String INSERT_BOOK = "INSERT INTO books (item_id, title, author, pub_date, genre, summary " +
+    private final String INSERT_BOOK = "INSERT INTO books (item_id, title, author, pub_date, genre, summary) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
     private final Integer BATCH_SIZE = 50;
 
