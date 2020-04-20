@@ -4,13 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import com.example.Library.Model.Item;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ItemDataDAO implements ItemDataDAOImpl {
 
-    private final String INSERT_ITEMNAME = "INSERT INTO items (ItemId, ItemName) VALUES (?, ?)";
-    private final String DELETE_ITEM = "DELETE FROM items WHERE ItemId = ?";
+    private final String INSERT_ITEMNAME = "INSERT INTO items (item_id, type, n_available, n_checked_out, " +
+            "is_digital) VALUES (?, ?, ?, ?, ?)";
+    private final String DELETE_ITEM = "DELETE FROM items WHERE item_id = ?";
+    private final String COUNT_ITEM = "SELECT n_available FROM items WHERE item_id = ?";
 
 
     @Autowired
@@ -26,10 +29,12 @@ public class ItemDataDAO implements ItemDataDAOImpl {
 
     @Override
     public Boolean addItem(Item item){
-
-        Object[] args = new Object[2];
-        args[0] = item.getItemId();
-        args[1] = item.getItemName();
+        Object[] args = new Object[5];
+        args[0] = item.getId();
+        args[1] = item.getType();
+        args[2] = item.getnAvailable();
+        args[3] = item.getnCheckedOut();
+        args[4] = item.getDigital();
 
         try {
             return template.update(INSERT_ITEMNAME, args) == 1;
@@ -42,12 +47,11 @@ public class ItemDataDAO implements ItemDataDAOImpl {
 
     @Override
     public Boolean removeItem(Item item) {
-
-        Object[] args = {item.getItemId()};
+        Object[] args = new Object[1];
+        args[0] = item.getId();
 
         try {
             return template.update(DELETE_ITEM, args) == 1;
-
         } catch (DataAccessException e) {
             e.printStackTrace();
             return false;
@@ -55,19 +59,13 @@ public class ItemDataDAO implements ItemDataDAOImpl {
     }
 
     public Boolean isAvailable(Item item) {
+        Object[] args = new Object[1];
+        args[0] = item.getId();
 
-        boolean available = false;
+        return template.query(COUNT_ITEM, args, (ResultSetExtractor<Boolean>) rs -> {
+            if (!rs.next()) return false;
 
-        Object[] args = {item.getItemId()};
-        String sql = "SELECT count(*) FROM items WHERE ItemId = ?";
-
-        int count = template.queryForObject(sql, args, Integer.class);
-
-        if (count > 0){
-            available = true;
-        }
-
-        return available;
-
+            return rs.getInt("n_available") > 0;
+        });
     }
 }
