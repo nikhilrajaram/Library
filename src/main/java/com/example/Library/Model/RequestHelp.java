@@ -1,14 +1,20 @@
 package com.example.Library.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import com.example.Library.Model.User;
+
+@Entity
 public class RequestHelp {
 
+    @Id
     private String email;
     private String content;
 
     public RequestHelp(){}
 
-    RequestHelp(String email, String content) {
-        this.email = email;
+    public RequestHelp(User user, String content) {
+        this.email = user.getEmail();
         this.content = content;
     }
 
