@@ -67,7 +67,7 @@ public class ItemDataLoaderUtil {
             String[] values;
             while ((values = csvReader.readNext()) != null) {
                 Movie movieToAdd = getMovieItem(values);
-                Item itemToAdd = getSemiRandomBookItem(movieToAdd.getItemId());
+                Item itemToAdd = getSemiRandomMovieItem(movieToAdd.getItemId());
                 movies.add(movieToAdd);
                 items.add(itemToAdd);
             }
@@ -77,6 +77,20 @@ public class ItemDataLoaderUtil {
 
         itemDataDAO.batchAddItems(items);
         movieDAO.batchAddMovie(movies);
+    }
+
+    private static Item getSemiRandomMovieItem(Integer itemId) {
+        Item item = new Item();
+        item.setItemId(itemId);
+        item.setType("movie");
+        item.setnAvailable((int) Math.round(5+randnGenerator.nextDouble()*3));
+        item.setnCheckedOut(0);
+        if (randnGenerator.nextDouble() <= 0.5) {
+            item.setDigital(true);
+        } else {
+            item.setDigital(false);
+        }
+        return item;
     }
 
     private static Item getSemiRandomBookItem(Integer itemId) {
