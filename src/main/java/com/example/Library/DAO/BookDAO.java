@@ -5,17 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class BookDAO implements BookDAOImpl {
 
     private final String INSERT_BOOK = "INSERT INTO books (item_id, title, author, pub_date, genre, summary) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
-    private final Integer BATCH_SIZE = 50;
 
     @Autowired
     JdbcTemplate template;
@@ -54,7 +55,7 @@ public class BookDAO implements BookDAOImpl {
 
             @Override
             public int getBatchSize() {
-                return BATCH_SIZE;
+                return books.size();
             }
         });
 

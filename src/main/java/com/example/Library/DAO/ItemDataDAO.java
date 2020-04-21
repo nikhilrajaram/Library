@@ -6,21 +6,20 @@ import com.example.Library.Model.Item;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Repository
 public class ItemDataDAO implements ItemDataDAOImpl {
 
     private final String INSERT_ITEMNAME = "INSERT INTO items (item_id, type, n_available, n_checked_out, " +
             "is_digital) VALUES (?, ?, ?, ?, ?)";
     private final String DELETE_ITEM = "DELETE FROM items WHERE item_id = ?";
     private final String COUNT_ITEM = "SELECT n_available FROM items WHERE item_id = ?";
-    private final Integer BATCH_SIZE = 50;
 
 
     @Autowired
@@ -67,7 +66,7 @@ public class ItemDataDAO implements ItemDataDAOImpl {
 
             @Override
             public int getBatchSize() {
-                return BATCH_SIZE;
+                return items.size();
             }
         });
 
