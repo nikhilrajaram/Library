@@ -18,4 +18,11 @@ public interface BookDAOImpl {
      * @return list of statuses for each item
      */
     List<Boolean> batchAddBooks(List<Book> books);
+
+    /**
+     * Get n random books from books table
+     * @param n number of random books desired
+     * @return n-long list of random books
+     */
+    List<Book> getRandomBooks(Integer n);
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.util.List;
 public class MovieDAO implements MovieDAOImpl {
     private final String INSERT_MOVIE = "INSERT INTO movies (item_id, title, release_date, runtime, genre, summary) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
+    private final String GET_N_RANDOM_MOVIES = "SELECT * FROM movies ORDER BY RANDOM() LIMIT ?";
 
     @Autowired
     JdbcTemplate template;
@@ -63,5 +65,26 @@ public class MovieDAO implements MovieDAOImpl {
         }
 
         return statuses;
+    }
+
+    @Override
+    public List<Movie> getRandomMovies(Integer n) {
+        Object[] args = new Object[1];
+        args[0] = n;
+
+        return template.query(GET_N_RANDOM_MOVIES, args, (ResultSetExtractor<List<Movie>>) rs -> {
+            List<Movie> randomBooks = new ArrayList<>();
+            while (rs.next()) {
+                randomBooks.add(
+                        new Movie(rs.getInt("item_id"),
+                                  rs.getString("title"),
+                                  rs.getDate("release_date"),
+                                  rs.getInt("runtime"),
+                                  rs.getString("genre"),
+                                  rs.getString("summary"))
+                );
+            }
+            return randomBooks;
+        });
     }
 }

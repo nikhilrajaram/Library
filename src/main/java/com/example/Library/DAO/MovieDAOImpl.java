@@ -18,4 +18,11 @@ public interface MovieDAOImpl {
      * @return list of statuses for each item
      */
     List<Boolean> batchAddMovie(List<Movie> movies);
+
+    /**
+     * Get n random movies from movies table
+     * @param n number of random movies desired
+     * @return n-long list of random movies
+     */
+    List<Movie> getRandomMovies(Integer n);
 }
