@@ -2,60 +2,84 @@ package com.example.Library.Util;
 
 import com.example.Library.DAO.BookDAO;
 import com.example.Library.DAO.ItemDataDAO;
+import com.example.Library.DAO.MovieDAO;
 import com.example.Library.Model.Book;
 import com.example.Library.Model.Item;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.Library.Model.Movie;
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvValidationException;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ItemDataLoaderUtil {
-    private final String COMMA_DELIMETER = ",";
+    private static final Character COMMA_DELIMETER = ',';
 
-    @Autowired
-    ItemDataDAO itemDataDAO;
+    private static SimpleDateFormat yearFormatter = new SimpleDateFormat("yyyy");
+    private static SimpleDateFormat yearMonthFormatter = new SimpleDateFormat("yyyy-mm");
+    private static SimpleDateFormat yearMonthDayFormatter = new SimpleDateFormat("yyyy-mm-dd");
 
-    @Autowired
-    BookDAO bookDAO;
+    private static Random randnGenerator = new Random(4448);
+    private static CSVParser parser = new CSVParserBuilder()
+            .withSeparator(COMMA_DELIMETER)
+            .withIgnoreQuotations(false)
+            .build();
 
-    private SimpleDateFormat yearFormatter = new SimpleDateFormat("yyyy");
-    private SimpleDateFormat yearMonthFormatter = new SimpleDateFormat("yyyy-mm");
-    private SimpleDateFormat yearMonthDayFormatter = new SimpleDateFormat("yyyy-mm-dd");
-
-    private Random randnGenerator;
-
-    public ItemDataLoaderUtil() {
-        this.randnGenerator = new Random(4448);
-    }
-
-    public void readAndInsertBooks(String filepath) throws FileNotFoundException  {
-        Boolean isFirstLine = true;
-
+    public static void readAndInsertBooks(String filepath, ItemDataDAO itemDataDAO, BookDAO bookDAO) throws FileNotFoundException {
+        // credit for reading in csv code: https://www.baeldung.com/java-csv-file-array
         List<Item> items = new ArrayList<>();
         List<Book> books = new ArrayList<>();
 
-        try (Scanner scanner = new Scanner(new File(filepath));) {
-            while (scanner.hasNextLine()) {
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue;
-                }
-
-                Book bookToAdd = getBookItemFromLine(scanner.next());
-                Item semiRandomBookItem = getSemiRandomBookItem(bookToAdd.getItemId());
+        try (CSVReader csvReader = new CSVReaderBuilder(new FileReader(filepath))
+                .withSkipLines(1)
+                .withCSVParser(parser)
+                .build()) {
+            String[] values;
+            while ((values = csvReader.readNext()) != null) {
+                Book bookToAdd = getBookItem(values);
+                Item itemToAdd = getSemiRandomBookItem(bookToAdd.getItemId());
                 books.add(bookToAdd);
-                items.add(semiRandomBookItem);
+                items.add(itemToAdd);
             }
+        } catch (IOException | CsvValidationException e) {
+            e.printStackTrace();
         }
 
         itemDataDAO.batchAddItems(items);
         bookDAO.batchAddBooks(books);
     }
 
-    private Item getSemiRandomBookItem(Integer itemId) {
+    public static void readAndInsertMovies(String filepath, ItemDataDAO itemDataDAO, MovieDAO movieDAO) throws FileNotFoundException {
+        List<Item> items = new ArrayList<>();
+        List<Movie> movies = new ArrayList<>();
+
+        try (CSVReader csvReader = new CSVReaderBuilder(new FileReader(filepath))
+                .withSkipLines(1)
+                .withCSVParser(parser)
+                .build()) {
+            String[] values;
+            while ((values = csvReader.readNext()) != null) {
+                Movie movieToAdd = getMovieItem(values);
+                Item itemToAdd = getSemiRandomBookItem(movieToAdd.getItemId());
+                movies.add(movieToAdd);
+                items.add(itemToAdd);
+            }
+        } catch (IOException | CsvValidationException e) {
+            e.printStackTrace();
+        }
+
+        itemDataDAO.batchAddItems(items);
+        movieDAO.batchAddMovie(movies);
+    }
+
+    private static Item getSemiRandomBookItem(Integer itemId) {
         Item item = new Item();
         item.setItemId(itemId);
         item.setType("book");
@@ -69,21 +93,37 @@ public class ItemDataLoaderUtil {
         return item;
     }
 
-    private Book getBookItemFromLine(String line) {
+    private static Book getBookItem(String[] values) {
         Book book = new Book();
-        try (Scanner rowScanner = new Scanner(line)) {
-            rowScanner.useDelimiter(COMMA_DELIMETER);
-            book.setItemId(rowScanner.nextInt());
-            book.setTitle(rowScanner.next());
-            book.setAuthor(rowScanner.next());
-            book.setPubDate(parseDate(rowScanner.next()));
-            book.setGenre(rowScanner.next());
-            book.setSummary(rowScanner.next());
-        }
+        book.setItemId(parseInt(values[0]));
+        book.setTitle(values[1]);
+        book.setAuthor(values[2]);
+        book.setPubDate(parseDate(values[3]));
+        book.setGenre(values[4]);
+        book.setSummary(values[5]);
         return book;
     }
 
-    private Date parseDate(String s) {
+    private static Movie getMovieItem(String[] values) {
+        Movie movie = new Movie();
+        movie.setItemId(parseInt(values[0]));
+        movie.setTitle(values[1]);
+        movie.setReleaseDate(parseDate(values[2]));
+        movie.setRuntime(parseInt(values[3]));
+        movie.setGenre(values[4]);
+        movie.setSummary(values[5]);
+        return movie;
+    }
+
+    private static Integer parseInt(String s) {
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return (int) Math.floor(Double.parseDouble(s));
+        }
+    }
+
+    private static Date parseDate(String s) {
         int strlen = s.length();
         if (strlen == 4) {
             try {
@@ -107,7 +147,7 @@ public class ItemDataLoaderUtil {
         return fallbackParseDate(s);
     }
 
-    private Date fallbackParseDate(String s) {
+    private static Date fallbackParseDate(String s) {
         try {
             return yearFormatter.parse(s);
         } catch (ParseException i) {
