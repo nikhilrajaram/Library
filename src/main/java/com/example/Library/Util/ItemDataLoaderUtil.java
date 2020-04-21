@@ -123,23 +123,23 @@ public class ItemDataLoaderUtil {
         }
     }
 
-    private static Date parseDate(String s) {
+    private static java.sql.Date parseDate(String s) {
         int strlen = s.length();
         if (strlen == 4) {
             try {
-                return yearFormatter.parse(s);
+                return new java.sql.Date(yearFormatter.parse(s).getTime());
             } catch (ParseException e) {
                 return fallbackParseDate(s);
             }
         } else if (strlen == 7) {
             try {
-                return yearMonthFormatter.parse(s);
+                return new java.sql.Date(yearMonthFormatter.parse(s).getTime());
             } catch (ParseException e) {
                 return fallbackParseDate(s);
             }
         } else if (strlen == 10) {
             try {
-                return yearMonthDayFormatter.parse(s);
+                return new java.sql.Date(yearMonthDayFormatter.parse(s).getTime());
             } catch (ParseException e) {
                 return fallbackParseDate(s);
             }
@@ -147,15 +147,15 @@ public class ItemDataLoaderUtil {
         return fallbackParseDate(s);
     }
 
-    private static Date fallbackParseDate(String s) {
+    private static java.sql.Date fallbackParseDate(String s) {
         try {
-            return yearFormatter.parse(s);
+            return new java.sql.Date(yearFormatter.parse(s).getTime());
         } catch (ParseException i) {
             try {
-                return yearMonthFormatter.parse(s);
+                return new java.sql.Date(yearMonthFormatter.parse(s).getTime());
             } catch (ParseException j) {
                 try {
-                    return yearMonthDayFormatter.parse(s);
+                    return new java.sql.Date(yearMonthDayFormatter.parse(s).getTime());
                 } catch (ParseException k) {
                     return null;
                 }
