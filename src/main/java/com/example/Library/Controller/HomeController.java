@@ -1,5 +1,7 @@
 package com.example.Library.Controller;
 
+import com.example.Library.DAO.BookDAO;
+import com.example.Library.DAO.MovieDAO;
 import com.example.Library.DAO.UserDataDAO;
 import com.example.Library.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class HomeController {
+    private final Integer N_CARDS_HOMEPAGE = 4;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserDataDAO userDataDAO;
+
+    @Autowired
+    private BookDAO bookDAO;
+
+    @Autowired
+    private MovieDAO movieDAO;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -52,6 +62,9 @@ public class HomeController {
             model.addAttribute("loginAttempt", -1);
             return "login";
         }
+
+        model.addAttribute("books", bookDAO.getRandomBooks(N_CARDS_HOMEPAGE));
+        model.addAttribute("movies", movieDAO.getRandomMovies(N_CARDS_HOMEPAGE));
 
         return "home-auth";
     }
