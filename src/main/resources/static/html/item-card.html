@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="card" th:fragment="bookCard">
+    <div class="card-body">
+        <h5 class="card-title" th:text="${book.getTitle()}"></h5>
+        <h6 class="card-subtitle mb-2 text-muted" th:text="${book.getAuthor()}"></h6>
+        <p class="card-text" th:text="${book.getSummary()}"></p>
+    </div>
+</div>
+<div class="card" th:fragment="movieCard">
+    <div class="card-body">
+        <h5 class="card-title" th:text="${movie.getTitle()}"></h5>
+        <h6 class="card-subtitle mb-2 text-muted" th:text="${movie.getGenre()}"></h6>
+        <p class="card-text" th:text="${movie.getSummary()}"></p>
+    </div>
+</div>
+</body>
+</html>

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -17,6 +18,7 @@ public class BookDAO implements BookDAOImpl {
 
     private final String INSERT_BOOK = "INSERT INTO books (item_id, title, author, pub_date, genre, summary) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
+    private final String GET_N_RANDOM_BOOKS = "SELECT * FROM books ORDER BY RANDOM() LIMIT ?";
 
     @Autowired
     JdbcTemplate template;
@@ -64,5 +66,26 @@ public class BookDAO implements BookDAOImpl {
         }
 
         return statuses;
+    }
+
+    @Override
+    public List<Book> getRandomBooks(Integer n) {
+        Object[] args = new Object[1];
+        args[0] = n;
+
+        return template.query(GET_N_RANDOM_BOOKS, args, (ResultSetExtractor<List<Book>>) rs -> {
+            List<Book> randomBooks = new ArrayList<>();
+            while (rs.next()) {
+                randomBooks.add(
+                        new Book(rs.getInt("item_id"),
+                                 rs.getString("title"),
+                                 rs.getString("author"),
+                                 rs.getDate("pub_date"),
+                                 rs.getString("genre"),
+                                 rs.getString("summary"))
+                );
+            }
+            return randomBooks;
+        });
     }
 }

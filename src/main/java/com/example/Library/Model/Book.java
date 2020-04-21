@@ -2,7 +2,7 @@ package com.example.Library.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 public class Book {
@@ -16,6 +16,14 @@ public class Book {
 
     public Book() {}
 
+    public Book(Integer itemId, String title, String author, Date pubDate, String genre, String summary) {
+        this.itemId = itemId;
+        this.title = title;
+        this.author = author;
+        this.pubDate = pubDate;
+        this.genre = genre;
+        this.summary = summary;
+    }
 
     public Integer getItemId() {
         return itemId;
