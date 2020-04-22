@@ -4,13 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Librarian implements Observer{
+public class Librarian {
 
     @Id
     private String email;
     private String password;
     private boolean enabled;
-    private Subject observable;
+
 
     public Librarian() {}
 
@@ -44,9 +44,5 @@ public class Librarian implements Observer{
         this.enabled = enabled;
     }
 
-    public void update(Observer observer, String content, User user) {
-        /** will do view instead of printing */
-        System.out.println("User" + user.getEmail() + " needs assistance with: " + content);
 
-    }
 }

@@ -1,21 +1,16 @@
 package com.example.Library.Model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import com.example.Library.Model.Observer;
+import com.example.Library.Service.UserHelpService;
 
 
 @Entity
-public class User implements Subject {
+public class User {
 
     @Id
     private String email;
     private String password;
     private boolean enabled;
-    private Observer observer;
-    private String content;
-
 
     public User() {}
 
@@ -23,37 +18,6 @@ public class User implements Subject {
         this.email = email;
         this.password = password;
         this.enabled = enabled;
-    }
-
-    @OneToMany
-    private List<Observer> observers = new ArrayList<Observer>();
-
-    public void setObserver(Observer observer){
-        this.observer = observer;
-    }
-
-    @Override
-    public void registerObserver(Observer observer){
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(Observer observer){
-        observers.remove(observer);
-    }
-
-
-    @Override
-    public void notifyObservers(){
-        for (Observer obs: observers){
-            obs.update(this.observer, this.content, this);
-        }
-    }
-
-    public void requestHelp(String content){
-        new RequestHelp(this, content);
-        this.content = content;
-        notifyObservers();
     }
 
 
@@ -79,6 +43,11 @@ public class User implements Subject {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public void requestHelp(String content){
+        UserHelpService helpService = new UserHelpService(this);
+        helpService.requestHelp(content);
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.Library.Model;
+package com.example.Library.Service;
 
 
 public interface Subject {

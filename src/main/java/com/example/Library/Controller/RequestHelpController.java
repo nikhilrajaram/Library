@@ -23,6 +23,12 @@ public class RequestHelpController {
     @RequestMapping(value = "/requestHelp", method = RequestMethod.POST)
     public String handleRequestHelp(@ModelAttribute RequestHelp requestHelp) {
         return "requestSubmitted";
-        // TODO: reroute successful request to good landing page
+
+    }
+
+    /** This mapping does not work */
+    @RequestMapping(value = "/requestSubmitted")
+    public String submitRequest(){
+        return "home";
     }
 }
