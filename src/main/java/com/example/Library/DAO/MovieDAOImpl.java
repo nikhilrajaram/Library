@@ -18,6 +18,7 @@ public class MovieDAOImpl implements MovieDAO {
     private final String INSERT_MOVIE = "INSERT INTO movies (item_id, title, release_date, runtime, genre, summary) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
     private final String GET_N_RANDOM_MOVIES = "SELECT * FROM movies ORDER BY RANDOM() LIMIT ?";
+    private final String GET_MOVIE = "SELECT * FROM movies WHERE item_id = ?";
 
     @Autowired
     JdbcTemplate template;
@@ -85,6 +86,23 @@ public class MovieDAOImpl implements MovieDAO {
                 );
             }
             return randomBooks;
+        });
+    }
+
+    @Override
+    public Movie getMovieById(Integer itemId) {
+        Object[] args = new Object[1];
+        args[0] = itemId;
+
+        return template.query(GET_MOVIE, args, (ResultSetExtractor<Movie>) rs -> {
+            if (!rs.next()) return null;
+
+            return new Movie(rs.getInt("item_id"),
+                             rs.getString("title"),
+                             rs.getDate("release_date"),
+                             rs.getInt("runtime"),
+                             rs.getString("genre"),
+                             rs.getString("summary"));
         });
     }
 }

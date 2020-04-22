@@ -34,4 +34,10 @@ public interface ItemDataDAO {
      */
     Boolean isAvailable(Item item);
 
+    /**
+     * Get item by item id
+     * @param itemId item id of item in consideration
+     * @return item
+     */
+    Item getItemById(Integer itemId);
 }
