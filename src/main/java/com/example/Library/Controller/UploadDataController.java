@@ -1,8 +1,8 @@
 package com.example.Library.Controller;
 
-import com.example.Library.DAO.BookDAO;
-import com.example.Library.DAO.ItemDataDAO;
-import com.example.Library.DAO.MovieDAO;
+import com.example.Library.DAO.BookDAOImpl;
+import com.example.Library.DAO.ItemDataDAOImpl;
+import com.example.Library.DAO.MovieDAOImpl;
 import com.example.Library.Util.ItemDataLoaderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,13 +26,13 @@ public class UploadDataController {
     private String movieFpath;
 
     @Autowired
-    ItemDataDAO itemDataDAO;
+    ItemDataDAOImpl itemDataDAO;
 
     @Autowired
-    BookDAO bookDAO;
+    BookDAOImpl bookDAO;
 
     @Autowired
-    MovieDAO movieDAO;
+    MovieDAOImpl movieDAO;
 
     // NOTE: routes only accessible when csrf disabled by admin & routes are permitted to unauth users
     @RequestMapping(value = "/insertStaticMovies", method = RequestMethod.POST)
