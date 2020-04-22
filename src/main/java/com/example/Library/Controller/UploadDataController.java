@@ -16,13 +16,13 @@ import java.util.Map;
 
 @Controller
 public class UploadDataController {
-    @Value("${DATA_ADMIN_PASSWORD}")
+    @Value("${DATA_ADMIN_PASSWORD:#{null}}")
     private String adminKey;
 
-    @Value("${fpath.books}")
+    @Value("${fpath.books:#{null}}")
     private String bookFpath;
 
-    @Value("${fpath.movies}")
+    @Value("${fpath.movies:#{null}}")
     private String movieFpath;
 
     @Autowired
