@@ -25,4 +25,11 @@ public interface MovieDAO {
      * @return n-long list of random movies
      */
     List<Movie> getRandomMovies(Integer n);
+
+    /**
+     * Get movie by item id
+     * @param itemId item id of movie
+     * @return movie corresponding to item id
+     */
+    Movie getMovieById(Integer itemId);
 }

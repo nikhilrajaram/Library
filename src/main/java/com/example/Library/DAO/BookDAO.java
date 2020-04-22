@@ -25,4 +25,11 @@ public interface BookDAO {
      * @return n-long list of random books
      */
     List<Book> getRandomBooks(Integer n);
+
+    /**
+     * Get book by item id
+     * @param itemId item id of book
+     * @return book corresponding to item id
+     */
+    Book getBookById(Integer itemId);
 }

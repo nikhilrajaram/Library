@@ -14,6 +14,14 @@ public class Item {
 
     public Item() {}
 
+    public Item(Integer itemId, String type, Integer nAvailable, Integer nCheckedOut, Boolean isDigital) {
+        this.itemId = itemId;
+        this.type = type;
+        this.nAvailable = nAvailable;
+        this.nCheckedOut = nCheckedOut;
+        this.isDigital = isDigital;
+    }
+
     public Integer getItemId() {
         return itemId;
     }
