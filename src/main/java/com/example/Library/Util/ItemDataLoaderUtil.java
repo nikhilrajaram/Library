@@ -1,8 +1,8 @@
 package com.example.Library.Util;
 
-import com.example.Library.DAO.BookDAO;
-import com.example.Library.DAO.ItemDataDAO;
-import com.example.Library.DAO.MovieDAO;
+import com.example.Library.DAO.BookDAOImpl;
+import com.example.Library.DAO.ItemDataDAOImpl;
+import com.example.Library.DAO.MovieDAOImpl;
 import com.example.Library.Model.Book;
 import com.example.Library.Model.Item;
 import com.example.Library.Model.Movie;
@@ -32,7 +32,7 @@ public class ItemDataLoaderUtil {
             .withIgnoreQuotations(false)
             .build();
 
-    public static void readAndInsertBooks(String filepath, ItemDataDAO itemDataDAO, BookDAO bookDAO) throws FileNotFoundException {
+    public static void readAndInsertBooks(String filepath, ItemDataDAOImpl itemDataDAO, BookDAOImpl bookDAO) throws FileNotFoundException {
         // credit for reading in csv code: https://www.baeldung.com/java-csv-file-array
         List<Item> items = new ArrayList<>();
         List<Book> books = new ArrayList<>();
@@ -56,7 +56,7 @@ public class ItemDataLoaderUtil {
         bookDAO.batchAddBooks(books);
     }
 
-    public static void readAndInsertMovies(String filepath, ItemDataDAO itemDataDAO, MovieDAO movieDAO) throws FileNotFoundException {
+    public static void readAndInsertMovies(String filepath, ItemDataDAOImpl itemDataDAO, MovieDAOImpl movieDAO) throws FileNotFoundException {
         List<Item> items = new ArrayList<>();
         List<Movie> movies = new ArrayList<>();
 

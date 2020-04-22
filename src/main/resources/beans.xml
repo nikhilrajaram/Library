@@ -16,7 +16,7 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="userDataDAO" class="com.example.Library.DAO.UserDataDAO">
+    <bean id="userDataDAO" class="com.example.Library.DAO.UserDataDAOImpl">
         <property name="template" ref="jdbcTemplate"/>
     </bean>
 </beans>
