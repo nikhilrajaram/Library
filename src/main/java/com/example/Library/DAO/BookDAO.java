@@ -32,4 +32,12 @@ public interface BookDAO {
      * @return book corresponding to item id
      */
     Book getBookById(Integer itemId);
+
+    /**
+     * Get all books on nth page of books
+     * @param nBooksPerPage number of books for page
+     * @param nPage page number
+     * @return list of books on page n
+     */
+    List<Book> getPageNBooks(Integer nBooksPerPage, Integer nPage);
 }

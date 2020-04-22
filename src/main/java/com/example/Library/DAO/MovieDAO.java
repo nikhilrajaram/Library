@@ -32,4 +32,12 @@ public interface MovieDAO {
      * @return movie corresponding to item id
      */
     Movie getMovieById(Integer itemId);
+
+    /**
+     * Get all movies on nth page of movies
+     * @param nMoviesPerPage number of movies for page
+     * @param nPage page number
+     * @return list of movies on page n
+     */
+    List<Movie> getPageNMovies(Integer nMoviesPerPage, Integer nPage);
 }

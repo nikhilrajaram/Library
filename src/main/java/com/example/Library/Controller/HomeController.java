@@ -38,8 +38,19 @@ public class HomeController {
     AuthenticationManager authenticationManager;
 
     @RequestMapping("/")
-    public String home() {
-        return "home";
+    public String home(Authentication auth, Model model) {
+        if (auth == null) {
+            return "home";
+        }
+
+        if (!auth.isAuthenticated()) {
+            return "home";
+        }
+
+        model.addAttribute("books", bookDAO.getRandomBooks(N_CARDS_HOMEPAGE));
+        model.addAttribute("movies", movieDAO.getRandomMovies(N_CARDS_HOMEPAGE));
+
+        return "home-auth";
     }
 
     @RequestMapping("/login")
