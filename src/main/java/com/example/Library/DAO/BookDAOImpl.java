@@ -20,6 +20,7 @@ public class BookDAOImpl implements BookDAO {
             "VALUES (?, ?, ?, ?, ?, ?)";
     private final String GET_N_RANDOM_BOOKS = "SELECT * FROM books ORDER BY RANDOM() LIMIT ?";
     private final String GET_BOOK = "SELECT * FROM books WHERE item_id = ?";
+    private final String GET_PAGE_N_BOOKS = "SELECT * FROM books LIMIT ? OFFSET ?";
 
     @Autowired
     JdbcTemplate template;
@@ -104,6 +105,27 @@ public class BookDAOImpl implements BookDAO {
                             rs.getDate("pub_date"),
                             rs.getString("genre"),
                             rs.getString("summary"));
+        });
+    }
+
+    @Override
+    public List<Book> getPageNBooks(Integer nBooksPerPage, Integer nPage) {
+        Object[] args = new Object[2];
+        args[0] = nBooksPerPage;
+        args[1] = nBooksPerPage*nPage;
+
+        return template.query(GET_PAGE_N_BOOKS, args, (ResultSetExtractor<List<Book>>) rs -> {
+            List<Book> books = new ArrayList<>();
+            while (rs.next()) {
+                books.add(new Book(rs.getInt("item_id"),
+                                   rs.getString("title"),
+                                   rs.getString("author"),
+                                   rs.getDate("pub_date"),
+                                   rs.getString("genre"),
+                                   rs.getString("summary"))
+                );
+            }
+            return books;
         });
     }
 }
