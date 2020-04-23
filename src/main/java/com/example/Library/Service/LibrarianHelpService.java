@@ -18,7 +18,7 @@ public class LibrarianHelpService extends Observer {
 
     public void update(LibrarianHelpService observer, String content, User user) {
         /** will do view instead of printing */
-        System.out.println("User" + user.getEmail() + " needs assistance with: " + content);
+        System.out.println("User: " + user.getEmail() + " needs assistance with: " + content);
 
     }
 }

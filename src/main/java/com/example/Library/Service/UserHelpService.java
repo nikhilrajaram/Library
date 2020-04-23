@@ -15,6 +15,7 @@ public class UserHelpService implements Subject {
 
     public UserHelpService(User user){
         this.user = user;
+
     }
 
 
