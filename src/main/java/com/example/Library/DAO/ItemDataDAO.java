@@ -40,5 +40,4 @@ public interface ItemDataDAO {
      * @return item
      */
     Item getItemById(Integer itemId);
-
 }

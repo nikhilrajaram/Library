@@ -110,10 +110,10 @@ public class ItemDataDAOImpl implements ItemDataDAO {
             if (!rs.next()) return null;
 
             return new Item(rs.getInt("item_id"),
-                    rs.getString("type"),
-                    rs.getInt("n_available"),
-                    rs.getInt("n_checked_out"),
-                    rs.getBoolean("is_digital"));
+                            rs.getString("type"),
+                            rs.getInt("n_available"),
+                            rs.getInt("n_checked_out"),
+                            rs.getBoolean("is_digital"));
         });
     }
 }

@@ -99,11 +99,11 @@ public class MovieDAOImpl implements MovieDAO {
             if (!rs.next()) return null;
 
             return new Movie(rs.getInt("item_id"),
-                    rs.getString("title"),
-                    rs.getDate("release_date"),
-                    rs.getInt("runtime"),
-                    rs.getString("genre"),
-                    rs.getString("summary"));
+                             rs.getString("title"),
+                             rs.getDate("release_date"),
+                             rs.getInt("runtime"),
+                             rs.getString("genre"),
+                             rs.getString("summary"));
         });
     }
 
@@ -117,11 +117,11 @@ public class MovieDAOImpl implements MovieDAO {
             List<Movie> books = new ArrayList<>();
             while (rs.next()) {
                 books.add(new Movie(rs.getInt("item_id"),
-                        rs.getString("title"),
-                        rs.getDate("release_date"),
-                        rs.getInt("runtime"),
-                        rs.getString("genre"),
-                        rs.getString("summary"))
+                                    rs.getString("title"),
+                                    rs.getDate("release_date"),
+                                    rs.getInt("runtime"),
+                                    rs.getString("genre"),
+                                    rs.getString("summary"))
                 );
             }
             return books;

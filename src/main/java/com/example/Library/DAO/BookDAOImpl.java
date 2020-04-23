@@ -100,11 +100,11 @@ public class BookDAOImpl implements BookDAO {
             if (!rs.next()) return null;
 
             return new Book(rs.getInt("item_id"),
-                    rs.getString("title"),
-                    rs.getString("author"),
-                    rs.getDate("pub_date"),
-                    rs.getString("genre"),
-                    rs.getString("summary"));
+                            rs.getString("title"),
+                            rs.getString("author"),
+                            rs.getDate("pub_date"),
+                            rs.getString("genre"),
+                            rs.getString("summary"));
         });
     }
 
@@ -118,11 +118,11 @@ public class BookDAOImpl implements BookDAO {
             List<Book> books = new ArrayList<>();
             while (rs.next()) {
                 books.add(new Book(rs.getInt("item_id"),
-                        rs.getString("title"),
-                        rs.getString("author"),
-                        rs.getDate("pub_date"),
-                        rs.getString("genre"),
-                        rs.getString("summary"))
+                                    rs.getString("title"),
+                                    rs.getString("author"),
+                                    rs.getDate("pub_date"),
+                                    rs.getString("genre"),
+                                    rs.getString("summary"))
                 );
             }
             return books;
