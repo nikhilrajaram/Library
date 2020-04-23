@@ -36,7 +36,7 @@ public class RequestHelpController {
         return "home";
    }
 
-   /** Map check requests page for a librarian */
+   /** Map checkRequests page for a librarian */
    @RequestMapping(value = "/checkRequests")
     public String checkRequests(@ModelAttribute Librarian librarian, Model model){
         model.addAttribute("librarian", new Librarian(librarian.getEmail(), librarian.getPassword(), librarian.isEnabled()));
