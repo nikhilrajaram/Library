@@ -12,6 +12,7 @@ public class RequestHelpController {
 
     private String content;
 
+
     @RequestMapping(value = "/requestHelp")
     public String requestHelp(@ModelAttribute User user, Model model){
         model.addAttribute("request" , new RequestHelp(user, content));
@@ -30,10 +31,13 @@ public class RequestHelpController {
         return "home";
     }
 
+
+
    @RequestMapping(value = "/home")
     public String handleSubmittedRequest(){
         return "home";
    }
+
 
 
 }
