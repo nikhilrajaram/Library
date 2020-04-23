@@ -1,5 +1,6 @@
 package com.example.Library.Controller;
 
+import com.example.Library.Model.Librarian;
 import com.example.Library.Model.RequestHelp;
 import com.example.Library.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class RequestHelpController {
 
     }
 
-    @RequestMapping(value = "/requestSubmitted")
+    @RequestMapping(value = "/requestSubmitted", method = RequestMethod.POST)
     public String submitRequest(@ModelAttribute RequestHelp requestHelp){
         return "home";
     }
@@ -33,6 +34,13 @@ public class RequestHelpController {
    @RequestMapping(value = "/home")
     public String handleSubmittedRequest(){
         return "home";
+   }
+
+   /** Map check requests page for a librarian */
+   @RequestMapping(value = "/checkRequests")
+    public String checkRequests(@ModelAttribute Librarian librarian, Model model){
+        model.addAttribute("librarian", new Librarian(librarian.getEmail(), librarian.getPassword(), librarian.isEnabled()));
+        return "checkRequests";
    }
 
 
