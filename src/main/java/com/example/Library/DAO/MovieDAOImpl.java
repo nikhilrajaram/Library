@@ -18,6 +18,8 @@ public class MovieDAOImpl implements MovieDAO {
     private final String INSERT_MOVIE = "INSERT INTO movies (item_id, title, release_date, runtime, genre, summary) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
     private final String GET_N_RANDOM_MOVIES = "SELECT * FROM movies ORDER BY RANDOM() LIMIT ?";
+    private final String GET_MOVIE = "SELECT * FROM movies WHERE item_id = ?";
+    private final String GET_PAGE_N_MOVIES = "SELECT * FROM movies LIMIT ? OFFSET ?";
 
     @Autowired
     JdbcTemplate template;
@@ -85,6 +87,44 @@ public class MovieDAOImpl implements MovieDAO {
                 );
             }
             return randomBooks;
+        });
+    }
+
+    @Override
+    public Movie getMovieById(Integer itemId) {
+        Object[] args = new Object[1];
+        args[0] = itemId;
+
+        return template.query(GET_MOVIE, args, (ResultSetExtractor<Movie>) rs -> {
+            if (!rs.next()) return null;
+
+            return new Movie(rs.getInt("item_id"),
+                    rs.getString("title"),
+                    rs.getDate("release_date"),
+                    rs.getInt("runtime"),
+                    rs.getString("genre"),
+                    rs.getString("summary"));
+        });
+    }
+
+    @Override
+    public List<Movie> getPageNMovies(Integer nMoviesPerPage, Integer nPage) {
+        Object[] args = new Object[2];
+        args[0] = nMoviesPerPage;
+        args[1] = nMoviesPerPage*nPage;
+
+        return template.query(GET_PAGE_N_MOVIES, args, (ResultSetExtractor<List<Movie>>) rs -> {
+            List<Movie> books = new ArrayList<>();
+            while (rs.next()) {
+                books.add(new Movie(rs.getInt("item_id"),
+                        rs.getString("title"),
+                        rs.getDate("release_date"),
+                        rs.getInt("runtime"),
+                        rs.getString("genre"),
+                        rs.getString("summary"))
+                );
+            }
+            return books;
         });
     }
 }

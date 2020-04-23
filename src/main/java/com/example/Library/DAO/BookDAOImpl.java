@@ -19,6 +19,8 @@ public class BookDAOImpl implements BookDAO {
     private final String INSERT_BOOK = "INSERT INTO books (item_id, title, author, pub_date, genre, summary) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
     private final String GET_N_RANDOM_BOOKS = "SELECT * FROM books ORDER BY RANDOM() LIMIT ?";
+    private final String GET_BOOK = "SELECT * FROM books WHERE item_id = ?";
+    private final String GET_PAGE_N_BOOKS = "SELECT * FROM books LIMIT ? OFFSET ?";
 
     @Autowired
     JdbcTemplate template;
@@ -86,6 +88,44 @@ public class BookDAOImpl implements BookDAO {
                 );
             }
             return randomBooks;
+        });
+    }
+
+    @Override
+    public Book getBookById(Integer itemId) {
+        Object[] args = new Object[1];
+        args[0] = itemId;
+
+        return template.query(GET_BOOK, args, (ResultSetExtractor<Book>) rs -> {
+            if (!rs.next()) return null;
+
+            return new Book(rs.getInt("item_id"),
+                    rs.getString("title"),
+                    rs.getString("author"),
+                    rs.getDate("pub_date"),
+                    rs.getString("genre"),
+                    rs.getString("summary"));
+        });
+    }
+
+    @Override
+    public List<Book> getPageNBooks(Integer nBooksPerPage, Integer nPage) {
+        Object[] args = new Object[2];
+        args[0] = nBooksPerPage;
+        args[1] = nBooksPerPage*nPage;
+
+        return template.query(GET_PAGE_N_BOOKS, args, (ResultSetExtractor<List<Book>>) rs -> {
+            List<Book> books = new ArrayList<>();
+            while (rs.next()) {
+                books.add(new Book(rs.getInt("item_id"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getDate("pub_date"),
+                        rs.getString("genre"),
+                        rs.getString("summary"))
+                );
+            }
+            return books;
         });
     }
 }

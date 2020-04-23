@@ -20,6 +20,7 @@ public class ItemDataDAOImpl implements ItemDataDAO {
             "is_digital) VALUES (?, ?, ?, ?, ?)";
     private final String DELETE_ITEM = "DELETE FROM items WHERE item_id = ?";
     private final String COUNT_ITEM = "SELECT n_available FROM items WHERE item_id = ?";
+    private final String GET_ITEM_TYPE = "SELECT * FROM items where item_id = ?";
 
 
     @Autowired
@@ -98,6 +99,21 @@ public class ItemDataDAOImpl implements ItemDataDAO {
             if (!rs.next()) return false;
 
             return rs.getInt("n_available") > 0;
+        });
+    }
+
+    @Override
+    public Item getItemById(Integer itemId) {
+        Object[] args = new Object[1];
+        args[0] = itemId;
+        return template.query(GET_ITEM_TYPE, args, (ResultSetExtractor<Item>) rs -> {
+            if (!rs.next()) return null;
+
+            return new Item(rs.getInt("item_id"),
+                    rs.getString("type"),
+                    rs.getInt("n_available"),
+                    rs.getInt("n_checked_out"),
+                    rs.getBoolean("is_digital"));
         });
     }
 }

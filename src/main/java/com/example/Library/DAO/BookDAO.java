@@ -25,4 +25,19 @@ public interface BookDAO {
      * @return n-long list of random books
      */
     List<Book> getRandomBooks(Integer n);
+
+    /**
+     * Get book by item id
+     * @param itemId item id of book
+     * @return book corresponding to item id
+     */
+    Book getBookById(Integer itemId);
+
+    /**
+     * Get all books on nth page of books
+     * @param nBooksPerPage number of books for page
+     * @param nPage page number
+     * @return list of books on page n
+     */
+    List<Book> getPageNBooks(Integer nBooksPerPage, Integer nPage);
 }
