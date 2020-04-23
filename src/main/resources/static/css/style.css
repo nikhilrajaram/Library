@@ -22,3 +22,11 @@
     padding: 20px;
 
 }
+
+.request-submitted-container {
+    background-color: coral;
+    width:  350px;
+    margin: 25px auto;
+    border-radius: 10px;
+    padding: 20px;
+}
