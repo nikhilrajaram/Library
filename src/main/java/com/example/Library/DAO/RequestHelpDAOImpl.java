@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RequestHelpDAOImpl implements RequestHelpDAO {
 
-    private final String INSERT_REQUEST = "INSERT INTO requests (email, content) VALUES (?, ?)";
-    private final String QUERY_REQUEST = "SELECT email FROM requests WHERE email = ?";
+    private final String INSERT_REQUEST = "INSERT INTO help_requests (email, content) VALUES (?, ?)";
+    private final String QUERY_REQUEST = "SELECT email FROM help_requests WHERE email = ?";
 
     @Autowired
     JdbcTemplate template;
