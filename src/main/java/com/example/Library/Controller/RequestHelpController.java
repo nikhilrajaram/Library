@@ -28,6 +28,7 @@ public class RequestHelpController {
 
     @RequestMapping(value = "/requestHelp")
     public String requestHelp(@ModelAttribute User user, Model model){
+
         model.addAttribute("user", new User(user.getEmail(),user.getPassword(),user.isEnabled()));
         model.addAttribute("request" , new RequestHelp(user.getEmail(), user.requestHelp(content)));
         model.addAttribute("email", user.getEmail());
@@ -38,7 +39,8 @@ public class RequestHelpController {
 
     @RequestMapping(value = "/requestHelp", method = RequestMethod.POST)
     public String handleRequestHelp(@ModelAttribute User user, Model model) {
-        model.addAttribute("userHelpService", userHelpService);
+        userHelpService.setUser(user);
+        model.addAttribute("userHelpService", userHelpService.getUser());
 
 
 
@@ -47,7 +49,7 @@ public class RequestHelpController {
     }
 
     @RequestMapping(value = "/requestSubmitted")
-    public String submitRequest(@ModelAttribute RequestHelp requestHelp){
+    public String submitRequest(@ModelAttribute User user){
         return "home";
     }
 

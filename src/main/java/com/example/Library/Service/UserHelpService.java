@@ -22,6 +22,13 @@ public class UserHelpService implements Subject {
 
     }
 
+    public void setUser(User user){
+        this.user = user;
+    }
+
+    public User getUser(){
+        return this.user;
+    }
 
     @Override
     public void registerObserver(LibrarianHelpService observer){
