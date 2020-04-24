@@ -4,8 +4,8 @@ import com.example.Library.DAO.RequestHelpDAOImpl;
 import com.example.Library.Model.HelpRequest;
 import com.example.Library.Model.Librarian;
 import com.example.Library.Model.User;
-import com.example.Library.Service.LibrarianHelpService;
-import com.example.Library.Service.UserHelpService;
+import com.example.Library.Util.LibrarianHelpObserver;
+import com.example.Library.Util.UserHelpObservable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,23 +15,17 @@ import org.springframework.web.bind.annotation.*;
 public class RequestHelpController {
 
     @Autowired
-    private RequestHelpDAOImpl requestHelp;
-
-    @Autowired
-    private UserHelpService userHelpService;
-
-    @Autowired
-    private LibrarianHelpService librarianHelpService;
+    private RequestHelpDAOImpl requestHelpDAO;
 
     @RequestMapping(value = "/requestHelp")
     public String requestHelp(@ModelAttribute User user, Model model){
-        model.addAttribute("request" , new HelpRequest(user, content));
+        model.addAttribute("request" , new HelpRequest(user, null));
         return "requestHelp";
     }
 
     @RequestMapping(value = "/requestHelp", method = RequestMethod.POST)
-    public String handleRequestHelp(@ModelAttribute User user, Model model) {
-        model.addAttribute("request", new HelpRequest(user, content));
+    public String handleRequestHelp(@ModelAttribute User user, @ModelAttribute HelpRequest request, Model model) {
+        (new UserHelpObservable(user)).notifyObservers();
         return "requestSubmitted";
     }
 
@@ -42,12 +36,10 @@ public class RequestHelpController {
 
     @RequestMapping(value = "/checkRequests", method = RequestMethod.POST)
     public String checkRequests(@ModelAttribute Librarian librarian, Model model){
-        model.addAttribute("librarianHelpService", new LibrarianHelpService(librarian, userHelpService));
+        model.addAttribute("librarianHelpService", new LibrarianHelpObserver(librarian, null));
 
-
-        /** Implement observer */
-        userHelpService.registerObserver(librarianHelpService);
-        userHelpService.requestHelp(content); /** This also updates librarianHelpRequest */
+//        userHelpService.registerObserver(librarianHelpService);
+//        userHelpService.requestHelp(content);
 
         return "checkRequests";
     }
