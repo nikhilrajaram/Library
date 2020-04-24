@@ -6,7 +6,6 @@ import com.example.Library.Model.RequestHelp;
 import com.example.Library.Model.User;
 import com.example.Library.Service.LibrarianHelpService;
 import com.example.Library.Service.UserHelpService;
-import org.graalvm.compiler.lir.LIRInstruction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,16 +29,18 @@ public class RequestHelpController {
     @RequestMapping(value = "/requestHelp")
     public String requestHelp(@ModelAttribute User user, Model model){
         model.addAttribute("user", new User(user.getEmail(),user.getPassword(),user.isEnabled()));
+        model.addAttribute("request" , new RequestHelp(user.getEmail(), user.requestHelp(content)));
+        model.addAttribute("email", user.getEmail());
+        model.addAttribute("content", user.requestHelp(content));
+        content = requestHelp.getRequest(user.getEmail()).getContent();
         return "requestHelp";
     }
 
     @RequestMapping(value = "/requestHelp", method = RequestMethod.POST)
     public String handleRequestHelp(@ModelAttribute User user, Model model) {
         model.addAttribute("userHelpService", userHelpService);
-        content = requestHelp.getRequest(user.getEmail()).getContent();
-        model.addAttribute("request" , new RequestHelp(user.getEmail(), user.requestHelp(content)));
-        model.addAttribute("email", user.getEmail());
-        model.addAttribute("content", user.requestHelp(content));
+
+
 
         return "requestSubmitted";
 

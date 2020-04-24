@@ -13,7 +13,7 @@
 <body>
 <div class="request-help-container">
     <h2>Request Help</h2>
-    <form action="#" th:action="@{/requestHelp}" th:object="${request}" method="post">
+    <form action="#" th:action="@{/requestHelp}" th:object="${request}" method="post" modelAttribute="RequestHelp">
         <div class="form-group">
               <input type="email" id="email" placeholder="Email Address" th:field="*{email}" />
         </div>
