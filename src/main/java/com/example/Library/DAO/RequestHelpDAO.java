@@ -1,6 +1,6 @@
 package com.example.Library.DAO;
 
-import com.example.Library.Model.RequestHelp;
+import com.example.Library.Model.HelpRequest;
 
 public interface RequestHelpDAO {
 
@@ -9,11 +9,11 @@ public interface RequestHelpDAO {
      * @param requestHelp request of consideration
      * @return if add successfully, return true; else false
      */
-    Boolean addRequestHelp(RequestHelp requestHelp);
+    Boolean addRequestHelp(HelpRequest requestHelp);
 
     /**
      * return the help request
      * @return requestHelp
      */
-    RequestHelp getRequest(String email);
+    HelpRequest getRequest(String email);
 }

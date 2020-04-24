@@ -1,7 +1,6 @@
 package com.example.Library.DAO;
 
-import com.example.Library.Model.RequestHelp;
-import com.example.Library.Model.User;
+import com.example.Library.Model.HelpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,7 +26,7 @@ public class RequestHelpDAOImpl implements RequestHelpDAO {
 
 
     @Override
-    public Boolean addRequestHelp(RequestHelp requestHelp) {
+    public Boolean addRequestHelp(HelpRequest requestHelp) {
         Object[] args = new Object[2];
         args[0] = requestHelp.getEmail();
         args[1] = requestHelp.getContent();
@@ -43,12 +42,12 @@ public class RequestHelpDAOImpl implements RequestHelpDAO {
     }
 
     @Override
-    public RequestHelp getRequest(String email) {
+    public HelpRequest getRequest(String email) {
         Object[] args = {email};
-        return template.query(QUERY_REQUEST, args, (ResultSetExtractor<RequestHelp>) rs -> {
+        return template.query(QUERY_REQUEST, args, (ResultSetExtractor<HelpRequest>) rs -> {
             if (!rs.next()) { return null; }
 
-            return new RequestHelp(rs.getString("email"),
+            return new HelpRequest(rs.getString("email"),
                                    rs.getString("content"));
 
         });
