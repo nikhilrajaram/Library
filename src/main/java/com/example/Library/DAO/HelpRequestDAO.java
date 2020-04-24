@@ -1,6 +1,9 @@
 package com.example.Library.DAO;
 
 import com.example.Library.Model.HelpRequest;
+import com.example.Library.Model.User;
+
+import java.util.List;
 
 public interface HelpRequestDAO {
 
@@ -11,9 +14,12 @@ public interface HelpRequestDAO {
      */
     Boolean addHelpRequest(HelpRequest requestHelp);
 
-    /**
-     * return the help request
-     * @return requestHelp
-     */
-    HelpRequest getRequest(String email);
+    List<HelpRequest> getRequestsForUser(String userEmail);
+
+    List<HelpRequest> getRequestsForUser(User user);
+
+    List<HelpRequest> getRequestsForLibrarian(String librarianEmail);
+
+    List<HelpRequest> getRequestsForLibrarian(User librarian);
+
 }
