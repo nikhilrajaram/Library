@@ -3,7 +3,7 @@ package com.example.Library.Controller;
 import com.example.Library.DAO.BookDAOImpl;
 import com.example.Library.DAO.ItemDataDAOImpl;
 import com.example.Library.DAO.MovieDAOImpl;
-import com.example.Library.Util.ItemDataLoaderUtil;
+import com.example.Library.Util.ItemDataLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,7 @@ public class UploadDataController {
         if (!keyMap.get("key").equals(adminKey)) return "home";
 
         try {
-            ItemDataLoaderUtil.readAndInsertMovies(movieFpath, itemDataDAO, movieDAO);
+            ItemDataLoader.readAndInsertMovies(movieFpath, itemDataDAO, movieDAO);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class UploadDataController {
         if (!keyMap.get("key").equals(adminKey)) return "home";
 
         try {
-            ItemDataLoaderUtil.readAndInsertBooks(bookFpath, itemDataDAO, bookDAO);
+            ItemDataLoader.readAndInsertBooks(bookFpath, itemDataDAO, bookDAO);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
