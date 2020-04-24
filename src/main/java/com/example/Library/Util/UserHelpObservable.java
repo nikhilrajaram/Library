@@ -10,39 +10,48 @@ import java.util.ArrayList;
 public class UserHelpObservable implements Observable {
 
     private User user;
-    private String content;
-    private ArrayList<LibrarianHelpObserver> observers = new ArrayList<>();
+    private HelpRequest request;
 
-    public UserHelpObservable(){
+    public UserHelpObservable() {
 
     }
 
-    public UserHelpObservable(User user){
+    public UserHelpObservable(User user, HelpRequest request) {
+        this.user = user;
+        this.request = request;
+    }
+
+    @Override
+    public void addObserver(LibrarianHelpObserver observer) {
+        // TODO
+        // insert relation into observer_relations table
+    }
+
+    @Override
+    public void removeObserver(LibrarianHelpObserver observer) {
+        // TODO
+        // remove from observer_relations table
+    }
+
+    @Override
+    public void notifyObservers() {
+        // TODO
+        // insert request into help_requests
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
         this.user = user;
     }
 
-    @Override
-    public void addObserver(LibrarianHelpObserver observer){
-        observers.add(observer);
+    public HelpRequest getRequest() {
+        return request;
     }
 
-    @Override
-    public void removeObserver(LibrarianHelpObserver observer){
-        observers.remove(observer);
+    public void setRequest(HelpRequest request) {
+        this.request = request;
     }
-
-
-    @Override
-    public void notifyObservers(){
-        for (LibrarianHelpObserver obs: observers){
-            obs.update(obs, this.content, this.user);
-        }
-    }
-
-    public void requestHelp(String content){
-        new HelpRequest(this.user, content);
-        this.content = content;
-        notifyObservers();
-    }
-
 }

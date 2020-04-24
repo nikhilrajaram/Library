@@ -2,6 +2,8 @@ package com.example.Library.Controller;
 
 import com.example.Library.DAO.RequestHelpDAOImpl;
 import com.example.Library.Model.HelpRequest;
+import com.example.Library.Model.User;
+import com.example.Library.Util.UserHelpObservable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,14 +22,17 @@ public class RequestHelpController {
 
     @RequestMapping(value = "/requestHelp")
     public String requestHelp(Authentication auth, Model model){
-        model.addAttribute("request" , new HelpRequest(auth.getName(), null));
+        User user = new User(auth.getName(), null, true);
+        HelpRequest request = new HelpRequest(user.getEmail(), null);
+        model.addAttribute("request" , request);
+        model.addAttribute("observable", new UserHelpObservable(user, request));
         return "requestHelp";
     }
 
     @RequestMapping(value = "/requestHelp", method = RequestMethod.POST)
-    public String handleRequestHelp(Authentication auth, @ModelAttribute HelpRequest request) {
-        request.setEmail(auth.getName());
-        requestHelpDAO.addHelpRequest(request);
+    public String handleRequestHelp(@ModelAttribute HelpRequest request,
+                                    @ModelAttribute UserHelpObservable userHelpObservable) {
+        userHelpObservable.notifyObservers();
         return "requestSubmitted";
     }
 
