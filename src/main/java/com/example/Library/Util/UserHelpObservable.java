@@ -1,12 +1,11 @@
 package com.example.Library.Util;
 
+import com.example.Library.DAO.HelpRequestDAOImpl;
 import com.example.Library.DAO.ObserverRelationDAOImpl;
 import com.example.Library.Model.HelpRequest;
+import com.example.Library.Model.ObserverRelation;
 import com.example.Library.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
 
 public class UserHelpObservable implements Observable {
 
@@ -14,7 +13,10 @@ public class UserHelpObservable implements Observable {
     private HelpRequest request;
 
     @Autowired
+    HelpRequestDAOImpl helpRequestDAO;
 
+    @Autowired
+    ObserverRelationDAOImpl observerRelationDAO;
 
     public UserHelpObservable() {
 
@@ -26,21 +28,22 @@ public class UserHelpObservable implements Observable {
     }
 
     @Override
-    public void addObserver(LibrarianHelpObserver observer) {
-        // TODO
-        // insert relation into observer_relations table
+    public void addObserver(ObserverRelation relation) {
+        observerRelationDAO.addObserverRelation(relation);
     }
 
     @Override
-    public void removeObserver(LibrarianHelpObserver observer) {
-        // TODO
-        // remove from observer_relations table
+    public void removeObserver(ObserverRelation relation) {
+        observerRelationDAO.removeObserverRelation(relation);
     }
 
     @Override
     public void notifyObservers() {
-        // TODO
-        // insert request into help_requests
+        if (!helpRequestDAO.addHelpRequest(request)) {
+            System.err.println("add help request error");
+        }
+
+
     }
 
     public User getUser() {
