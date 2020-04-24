@@ -1,7 +1,6 @@
 package com.example.Library.Service;
 
-import com.example.Library.Model.Librarian;
-import com.example.Library.Model.RequestHelp;
+import com.example.Library.Model.HelpRequest;
 import com.example.Library.Model.User;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class UserHelpService implements Subject {
     }
 
     public void requestHelp(String content){
-        new RequestHelp(this.user, content);
+        new HelpRequest(this.user, content);
         this.content = content;
         notifyObservers();
     }
