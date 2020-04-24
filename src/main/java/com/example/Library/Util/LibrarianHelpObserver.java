@@ -1,18 +1,17 @@
 package com.example.Library.Util;
 
-import com.example.Library.Model.Librarian;
 import com.example.Library.Model.User;
 
 import java.util.ArrayList;
 
 public class LibrarianHelpObserver extends Observer {
 
-    private Librarian librarian;
-    private ArrayList<UserHelpObservable> observable = new ArrayList<UserHelpObservable>();;
+    private User librarian;
+    private ArrayList<UserHelpObservable> observable = new ArrayList<>();
 
     public LibrarianHelpObserver() {}
 
-    public LibrarianHelpObserver(Librarian librarian, UserHelpObservable subject){
+    public LibrarianHelpObserver(User librarian, UserHelpObservable subject){
         this.librarian = librarian;
         this.observable.add(subject);
     }

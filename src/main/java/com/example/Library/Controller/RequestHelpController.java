@@ -2,7 +2,6 @@ package com.example.Library.Controller;
 
 import com.example.Library.DAO.RequestHelpDAOImpl;
 import com.example.Library.Model.HelpRequest;
-import com.example.Library.Model.Librarian;
 import com.example.Library.Model.User;
 import com.example.Library.Util.LibrarianHelpObserver;
 import com.example.Library.Util.UserHelpObservable;
@@ -35,7 +34,7 @@ public class RequestHelpController {
     }
 
     @RequestMapping(value = "/checkRequests", method = RequestMethod.POST)
-    public String checkRequests(@ModelAttribute Librarian librarian, Model model){
+    public String checkRequests(@ModelAttribute User librarian, Model model){
         model.addAttribute("librarianHelpService", new LibrarianHelpObserver(librarian, null));
 
 //        userHelpService.registerObserver(librarianHelpService);
