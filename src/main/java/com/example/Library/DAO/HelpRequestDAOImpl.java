@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class RequestHelpDAOImpl implements RequestHelpDAO {
+public class HelpRequestDAOImpl implements HelpRequestDAO {
 
     private final String INSERT_REQUEST = "INSERT INTO help_requests (email, content) VALUES (?, ?)";
     private final String QUERY_REQUEST = "SELECT email FROM help_requests WHERE email = ?";
@@ -16,7 +16,7 @@ public class RequestHelpDAOImpl implements RequestHelpDAO {
     @Autowired
     JdbcTemplate template;
 
-    public RequestHelpDAOImpl() {
+    public HelpRequestDAOImpl() {
 
     }
 

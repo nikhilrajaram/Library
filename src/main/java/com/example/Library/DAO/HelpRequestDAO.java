@@ -2,7 +2,7 @@ package com.example.Library.DAO;
 
 import com.example.Library.Model.HelpRequest;
 
-public interface RequestHelpDAO {
+public interface HelpRequestDAO {
 
     /**
      * add a help request to database 
