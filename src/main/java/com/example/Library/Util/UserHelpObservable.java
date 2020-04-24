@@ -1,4 +1,4 @@
-package com.example.Library.Service;
+package com.example.Library.Util;
 
 import com.example.Library.Model.HelpRequest;
 import com.example.Library.Model.User;
@@ -7,33 +7,33 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 
 @Repository
-public class UserHelpService implements Subject {
+public class UserHelpObservable implements Observable {
 
     private User user;
     private String content;
-    private ArrayList<LibrarianHelpService> observers = new ArrayList<LibrarianHelpService>();
+    private ArrayList<LibrarianHelpObserver> observers = new ArrayList<LibrarianHelpObserver>();
 
-    public UserHelpService(){
+    public UserHelpObservable(){
 
     }
-    public UserHelpService(User user){
+    public UserHelpObservable(User user){
         this.user = user;
     }
 
     @Override
-    public void registerObserver(LibrarianHelpService observer){
+    public void registerObserver(LibrarianHelpObserver observer){
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(LibrarianHelpService observer){
+    public void removeObserver(LibrarianHelpObserver observer){
         observers.remove(observer);
     }
 
 
     @Override
     public void notifyObservers(){
-        for (LibrarianHelpService obs: observers){
+        for (LibrarianHelpObserver obs: observers){
             obs.update(obs, this.content, this.user);
         }
     }

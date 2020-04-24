@@ -19,7 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ItemDataLoaderUtil {
+public class ItemDataLoader {
     private static final Character COMMA_DELIMETER = ',';
 
     private static SimpleDateFormat yearFormatter = new SimpleDateFormat("yyyy");
