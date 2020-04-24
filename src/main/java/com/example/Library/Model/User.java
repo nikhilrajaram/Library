@@ -1,8 +1,7 @@
 package com.example.Library.Model;
 
-import javax.persistence.*;
-import com.example.Library.Service.UserHelpObservable;
-
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class User {
