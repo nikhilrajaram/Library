@@ -1,0 +1,57 @@
+package com.example.Library.DAO;
+
+import com.example.Library.Model.RequestHelp;
+import com.example.Library.Model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class RequestHelpDAOImpl implements RequestHelpDAO {
+
+    private final String INSERT_REQUEST = "INSERT INTO requests (email, content) VALUES (?, ?)";
+    private final String QUERY_REQUEST = "SELECT email FROM requests WHERE email = ?";
+
+    @Autowired
+    JdbcTemplate template;
+
+    public RequestHelpDAOImpl() {
+
+    }
+
+    public void setTemplate(JdbcTemplate template) {
+        this.template = template;
+    }
+
+
+    @Override
+    public Boolean addRequestHelp(RequestHelp requestHelp) {
+        Object[] args = new Object[2];
+        args[0] = requestHelp.getEmail();
+        args[1] = requestHelp.getContent();
+
+        try {
+            if (template.update(INSERT_REQUEST, args) != 1) { return false; }
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public RequestHelp getRequest(String email) {
+        Object[] args = {email};
+        return template.query(QUERY_REQUEST, args, (ResultSetExtractor<RequestHelp>) rs -> {
+            if (!rs.next()) { return null; }
+
+            return new RequestHelp(rs.getString("email"),
+                                   rs.getString("content"));
+
+        });
+
+    }
+}

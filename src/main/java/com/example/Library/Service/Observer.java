@@ -2,6 +2,7 @@ package com.example.Library.Service;
 
 import com.example.Library.Model.User;
 
-public interface Observer {
-    public void update(Observer observer, String content, User user);
+public abstract class Observer {
+    protected UserHelpService subject;
+    public void update(LibrarianHelpService observer, String content, User user){};
 }

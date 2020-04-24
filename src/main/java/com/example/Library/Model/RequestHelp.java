@@ -11,10 +11,11 @@ public class RequestHelp {
     private String email;
     private String content;
 
+
     public RequestHelp(){}
 
-    public RequestHelp(User user, String content) {
-        this.email = user.getEmail();
+    public RequestHelp(String email, String content) {
+        this.email = email;
         this.content = content;
     }
 
@@ -33,4 +34,5 @@ public class RequestHelp {
     public void setContent(String content) {
         this.content = content;
     }
+
 }

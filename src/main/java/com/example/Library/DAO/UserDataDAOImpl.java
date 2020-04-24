@@ -41,8 +41,8 @@ public class UserDataDAOImpl implements UserDataDAO {
             if (!rs.next()) { return null; }
 
             return new User(rs.getString("email"),
-                            rs.getString("password"),
-                            rs.getBoolean("enabled"));
+                    rs.getString("password"),
+                    rs.getBoolean("enabled"));
 
         });
     }
