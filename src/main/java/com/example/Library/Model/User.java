@@ -1,8 +1,7 @@
 package com.example.Library.Model;
 
-import javax.persistence.*;
-import com.example.Library.Service.UserHelpService;
-
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class User {
@@ -44,13 +43,4 @@ public class User {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
-    public void requestHelp(String content){
-        UserHelpService helpService = new UserHelpService(this);
-        helpService.requestHelp(content);
-    }
-
-
-
-
 }

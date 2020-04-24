@@ -5,15 +5,18 @@ import javax.persistence.Id;
 import com.example.Library.Model.User;
 
 @Entity
-public class RequestHelp {
+public class HelpRequest {
 
     @Id
     private String email;
     private String content;
 
-    public RequestHelp(){}
+    public HelpRequest(String email, String content){
+        this.email = email;
+        this.content = content;
+    }
 
-    public RequestHelp(User user, String content) {
+    public HelpRequest(User user, String content) {
         this.email = user.getEmail();
         this.content = content;
     }
