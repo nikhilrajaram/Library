@@ -96,6 +96,7 @@ public class HomeController {
     }
 
     /** If model is librarian, map it to librarian-home page */
+    /** Not complete; handle log in if entity is librarian */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String handleLoginForLibrarian(@ModelAttribute Librarian librarian, Model model){
         model.addAttribute("librarian", new Librarian());
