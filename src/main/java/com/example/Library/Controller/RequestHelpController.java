@@ -1,7 +1,12 @@
 package com.example.Library.Controller;
 
+import com.example.Library.DAO.RequestHelpDAOImpl;
 import com.example.Library.Model.HelpRequest;
+import com.example.Library.Model.Librarian;
 import com.example.Library.Model.User;
+import com.example.Library.Service.LibrarianHelpService;
+import com.example.Library.Service.UserHelpService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +14,14 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class RequestHelpController {
 
-    private String content;
+    @Autowired
+    private RequestHelpDAOImpl requestHelp;
+
+    @Autowired
+    private UserHelpService userHelpService;
+
+    @Autowired
+    private LibrarianHelpService librarianHelpService;
 
     @RequestMapping(value = "/requestHelp")
     public String requestHelp(@ModelAttribute User user, Model model){
@@ -24,12 +36,19 @@ public class RequestHelpController {
     }
 
     @RequestMapping(value = "/requestSubmitted")
-    public String submitRequest(@ModelAttribute HelpRequest helpRequest){
+    public String submitRequest(@ModelAttribute HelpRequest requestHelp){
         return "home";
     }
 
-   @RequestMapping(value = "/home")
-    public String handleSubmittedRequest(){
-        return "home";
-   }
+    @RequestMapping(value = "/checkRequests", method = RequestMethod.POST)
+    public String checkRequests(@ModelAttribute Librarian librarian, Model model){
+        model.addAttribute("librarianHelpService", new LibrarianHelpService(librarian, userHelpService));
+
+
+        /** Implement observer */
+        userHelpService.registerObserver(librarianHelpService);
+        userHelpService.requestHelp(content); /** This also updates librarianHelpRequest */
+
+        return "checkRequests";
+    }
 }

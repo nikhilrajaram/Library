@@ -45,9 +45,10 @@ public class User {
         this.enabled = enabled;
     }
 
-    public void requestHelp(String content){
+    public String requestHelp(String content){
         UserHelpService helpService = new UserHelpService(this);
         helpService.requestHelp(content);
+        return content;
     }
 
 

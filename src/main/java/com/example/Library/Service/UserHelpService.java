@@ -2,21 +2,23 @@ package com.example.Library.Service;
 
 import com.example.Library.Model.HelpRequest;
 import com.example.Library.Model.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
-
+@Repository
 public class UserHelpService implements Subject {
 
     private User user;
     private String content;
     private ArrayList<LibrarianHelpService> observers = new ArrayList<LibrarianHelpService>();
 
-    public UserHelpService(User user){
-        this.user = user;
+    public UserHelpService(){
 
     }
-
+    public UserHelpService(User user){
+        this.user = user;
+    }
 
     @Override
     public void registerObserver(LibrarianHelpService observer){

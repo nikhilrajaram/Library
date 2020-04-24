@@ -3,6 +3,7 @@ package com.example.Library.Controller;
 import com.example.Library.DAO.BookDAOImpl;
 import com.example.Library.DAO.MovieDAOImpl;
 import com.example.Library.DAO.UserDataDAOImpl;
+import com.example.Library.Model.Librarian;
 import com.example.Library.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -105,4 +106,10 @@ public class HomeController {
         return "login";
     }
 
+    /** If model is librarian, map it to librarian-home page */
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String handleLoginForLibrarian(@ModelAttribute Librarian librarian, Model model){
+        model.addAttribute("librarian", new Librarian());
+        return "librarian-home";
+    }
 }
