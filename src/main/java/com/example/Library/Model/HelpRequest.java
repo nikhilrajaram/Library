@@ -11,7 +11,10 @@ public class HelpRequest {
     private String email;
     private String content;
 
-    public HelpRequest(){}
+    public HelpRequest(String email, String content){
+        this.email = email;
+        this.content = content;
+    }
 
     public HelpRequest(User user, String content) {
         this.email = user.getEmail();
