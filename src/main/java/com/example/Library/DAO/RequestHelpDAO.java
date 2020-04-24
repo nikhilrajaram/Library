@@ -9,7 +9,7 @@ public interface RequestHelpDAO {
      * @param requestHelp request of consideration
      * @return if add successfully, return true; else false
      */
-    Boolean addRequestHelp(HelpRequest requestHelp);
+    Boolean addHelpRequest(HelpRequest requestHelp);
 
     /**
      * return the help request

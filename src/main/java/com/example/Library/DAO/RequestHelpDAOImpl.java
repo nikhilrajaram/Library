@@ -26,7 +26,7 @@ public class RequestHelpDAOImpl implements RequestHelpDAO {
 
 
     @Override
-    public Boolean addRequestHelp(HelpRequest requestHelp) {
+    public Boolean addHelpRequest(HelpRequest requestHelp) {
         Object[] args = new Object[2];
         args[0] = requestHelp.getEmail();
         args[1] = requestHelp.getContent();

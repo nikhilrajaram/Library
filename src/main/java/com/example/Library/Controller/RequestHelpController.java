@@ -2,13 +2,15 @@ package com.example.Library.Controller;
 
 import com.example.Library.DAO.RequestHelpDAOImpl;
 import com.example.Library.Model.HelpRequest;
-import com.example.Library.Model.User;
-import com.example.Library.Util.LibrarianHelpObserver;
-import com.example.Library.Util.UserHelpObservable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @Controller
 public class RequestHelpController {
@@ -17,28 +19,36 @@ public class RequestHelpController {
     private RequestHelpDAOImpl requestHelpDAO;
 
     @RequestMapping(value = "/requestHelp")
-    public String requestHelp(@ModelAttribute User user, Model model){
-        model.addAttribute("request" , new HelpRequest(user, null));
+    public String requestHelp(Authentication auth, Model model){
+        model.addAttribute("request" , new HelpRequest(auth.getName(), null));
         return "requestHelp";
     }
 
     @RequestMapping(value = "/requestHelp", method = RequestMethod.POST)
-    public String handleRequestHelp(@ModelAttribute User user, @ModelAttribute HelpRequest request, Model model) {
-        (new UserHelpObservable(user)).notifyObservers();
+    public String handleRequestHelp(Authentication auth, @ModelAttribute HelpRequest request) {
+        request.setEmail(auth.getName());
+        requestHelpDAO.addHelpRequest(request);
         return "requestSubmitted";
     }
 
     @RequestMapping(value = "/requestSubmitted")
     public String submitRequest(@ModelAttribute HelpRequest requestHelp){
+        // TODO: delete this it's unnecessary
         return "home";
     }
 
-    @RequestMapping(value = "/checkRequests", method = RequestMethod.POST)
-    public String checkRequests(@ModelAttribute User librarian, Model model){
-        model.addAttribute("librarianHelpService", new LibrarianHelpObserver(librarian, null));
+    @RequestMapping("/checkRequests")
+    public String checkRequests(Authentication auth, Model model){
+        Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
 
-//        userHelpService.registerObserver(librarianHelpService);
-//        userHelpService.requestHelp(content);
+        if (authorities.contains((new SimpleGrantedAuthority("LIBRARIAN")))) {
+            // user is librarian
+            // TODO: handle logic for displaying requests sent by subjects/observables
+            // return something
+        }
+
+        // user is not librarian
+        // TODO: handle logic for displaying responses from observer(s)
 
         return "checkRequests";
     }
