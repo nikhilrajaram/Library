@@ -1,16 +1,20 @@
 package com.example.Library.Util;
 
+import com.example.Library.DAO.ObserverRelationDAOImpl;
 import com.example.Library.Model.HelpRequest;
 import com.example.Library.Model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
-@Repository
 public class UserHelpObservable implements Observable {
 
     private User user;
     private HelpRequest request;
+
+    @Autowired
+
 
     public UserHelpObservable() {
 

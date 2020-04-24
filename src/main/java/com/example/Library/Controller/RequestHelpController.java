@@ -1,6 +1,6 @@
 package com.example.Library.Controller;
 
-import com.example.Library.DAO.RequestHelpDAOImpl;
+import com.example.Library.DAO.HelpRequestDAOImpl;
 import com.example.Library.Model.HelpRequest;
 import com.example.Library.Model.User;
 import com.example.Library.Util.UserHelpObservable;
@@ -18,7 +18,7 @@ import java.util.Collection;
 public class RequestHelpController {
 
     @Autowired
-    private RequestHelpDAOImpl requestHelpDAO;
+    private HelpRequestDAOImpl requestHelpDAO;
 
     @RequestMapping(value = "/requestHelp")
     public String requestHelp(Authentication auth, Model model){
