@@ -104,4 +104,5 @@ public class HomeController {
         userDataDAO.registerUser(user);
         return "login";
     }
+
 }

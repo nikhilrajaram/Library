@@ -1,25 +1,24 @@
 package com.example.Library.Model;
 
-import javax.persistence.*;
-import com.example.Library.Service.UserHelpService;
-
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
-public class User {
+public class Librarian {
 
     @Id
     private String email;
     private String password;
     private boolean enabled;
 
-    public User() {}
 
-    public User(String email, String password, boolean enabled) {
+    public Librarian() {}
+
+    public Librarian(String email, String password, boolean enabled) {
         this.email = email;
         this.password = password;
         this.enabled = enabled;
     }
-
 
     public String getEmail() {
         return this.email;
@@ -44,13 +43,6 @@ public class User {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
-    public void requestHelp(String content){
-        UserHelpService helpService = new UserHelpService(this);
-        helpService.requestHelp(content);
-    }
-
-
 
 
 }

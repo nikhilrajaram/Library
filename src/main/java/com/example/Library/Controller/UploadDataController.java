@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-@Controller
+/** @Controller
 public class UploadDataController {
     @Value("${DATA_ADMIN_PASSWORD:#{null}}")
     private String adminKey;
@@ -58,4 +58,4 @@ public class UploadDataController {
         }
         return "home";
     }
-}
+} */
