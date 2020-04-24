@@ -3,6 +3,7 @@ package com.example.Library.Controller;
 import com.example.Library.DAO.HelpRequestDAOImpl;
 import com.example.Library.Model.HelpRequest;
 import com.example.Library.Model.User;
+import com.example.Library.Util.LibrarianHelpObserver;
 import com.example.Library.Util.UserHelpObservable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -48,8 +49,11 @@ public class RequestHelpController {
 
         if (authorities.contains((new SimpleGrantedAuthority("LIBRARIAN")))) {
             // user is librarian
-            // TODO: handle logic for displaying requests sent by subjects/observables
-            // return something
+            User librarian = new User(auth.getName(), null, true);
+            LibrarianHelpObserver librarianHelpObserver = new LibrarianHelpObserver(librarian);
+            // update model
+            librarianHelpObserver.update(model);
+            return "checkRequests-librarian";
         }
 
         // user is not librarian
