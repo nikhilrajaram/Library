@@ -11,17 +11,18 @@ public class UserHelpObservable implements Observable {
 
     private User user;
     private String content;
-    private ArrayList<LibrarianHelpObserver> observers = new ArrayList<LibrarianHelpObserver>();
+    private ArrayList<LibrarianHelpObserver> observers = new ArrayList<>();
 
     public UserHelpObservable(){
 
     }
+
     public UserHelpObservable(User user){
         this.user = user;
     }
 
     @Override
-    public void registerObserver(LibrarianHelpObserver observer){
+    public void addObserver(LibrarianHelpObserver observer){
         observers.add(observer);
     }
 
