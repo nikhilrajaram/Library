@@ -14,6 +14,9 @@
 <div class="container">
     <div class="alert alert-info">
         <strong>Failed to check out this item.</strong> Reason: <p style="display:inline" th:text="${reason}"></p>
+        <ul class="list-group" th:if="${reason.equals('User has overdue books.')}" th:each="record : ${overdueItemRecords}">
+            <li class="list-group-item" th:text="'Item ' + ${record.getItemId()} + ' was due on ' + ${record.getReturnByDate()}"></li>
+        </ul>
     </div>
     <button class="btn btn-primary" type="button" onclick="{window.location='/'}">Go to home page</button>
     <button class="btn btn-secondary" type="button" onclick="{window.location='/checkOutPhysicalItem'}">Check out another item</button>
