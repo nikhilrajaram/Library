@@ -1,8 +1,5 @@
 package com.example.Library.Model;
 
-import javax.persistence.Entity;
-
-@Entity
 public class ObserverRelation {
     private String userEmail;
     private String librarianEmail;
