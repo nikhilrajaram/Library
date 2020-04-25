@@ -22,18 +22,16 @@ public class RequestHelpController {
     private HelpRequestDAOImpl requestHelpDAO;
 
     @RequestMapping(value = "/requestHelp")
-    public String requestHelp(Authentication auth, Model model){
-        User user = new User(auth.getName(), null, true);
-        HelpRequest request = new HelpRequest(user.getEmail(), null);
-        model.addAttribute("request" , request);
-        model.addAttribute("observable", new UserHelpObservable(user, request));
+    public String requestHelp(Model model){
+        model.addAttribute("request" , new HelpRequest());
         return "requestHelp";
     }
 
     @RequestMapping(value = "/requestHelp", method = RequestMethod.POST)
-    public String handleRequestHelp(@ModelAttribute HelpRequest request,
-                                    @ModelAttribute UserHelpObservable userHelpObservable) {
-        userHelpObservable.notifyObservers();
+    public String handleRequestHelp(Authentication auth, @ModelAttribute HelpRequest request) {
+        User user = new User(auth.getName(), null, true);
+        request.setEmail(user.getEmail());
+        (new UserHelpObservable(user, request)).notifyObservers();
         return "requestSubmitted";
     }
 
