@@ -52,18 +52,22 @@ public class PhysicalItemController {
 
     @RequestMapping(value = "/checkOutPhysicalItem", method = RequestMethod.POST)
     public String handleCheckOutPhysicalItem(@ModelAttribute User user, @ModelAttribute Item item, Model model){
-        if(itemDataDAO.getnAvailable(item) > 0) {
-            itemDataDAO.checkOutItem(item);
-            Record record = new Record(user, item);
-            model.addAttribute("record", record);
-            recordDAO.insertRecord(record);
-            return "item-checked-out";
+        Integer nAvailable = itemDataDAO.getnAvailable(item);
+
+        if (nAvailable == null) {
+            model.addAttribute("reason", String.format("Item with associated itemId %d does not exist.",
+                    item.getItemId()));
+            return "failed-check-out";
+        } else if (nAvailable == 0) {
+            model.addAttribute("reason", "This item is out of stock.");
+            return "failed-check-out";
         }
 
-        model.addAttribute("reason", "This item is out of stock.");
-
-        return "failed-check-out";
-
+        itemDataDAO.checkOutItem(item);
+        Record record = new Record(user, item);
+        model.addAttribute("record", record);
+        recordDAO.insertRecord(record);
+        return "item-checked-out";
     }
 
 }
