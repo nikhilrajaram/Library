@@ -116,4 +116,5 @@ public class ItemDataDAOImpl implements ItemDataDAO {
                             rs.getBoolean("is_digital"));
         });
     }
+
 }

@@ -14,7 +14,7 @@
 <div th:replace="../static/html/navbar :: navbar-auth"></div>
 <div class="request-help-container">
     <h2>Request Help</h2>
-    <form action="#" th:action="@{/checkOutPhysicalItem}" th:object="${item}" method="post">
+    <form action="#" th:action="@{/checkOutPhysicalItem}" th:object="${user}" method="post">
         <div class="form-group">
             <input type="text" required class="form-control" id="user-email" placeholder="User Email Address" th:field="*{email}" />
         </div>
