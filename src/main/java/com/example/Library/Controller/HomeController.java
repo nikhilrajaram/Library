@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class HomeController {
-    private final Integer N_CARDS_HOMEPAGE = 4;
+    static final Integer N_CARDS_HOMEPAGE = 4;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
