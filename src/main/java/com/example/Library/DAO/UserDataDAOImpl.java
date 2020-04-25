@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository("userDataDAO")
 public class UserDataDAOImpl implements UserDataDAO {
 
     private final String QUERY_EMAIL = "SELECT email FROM users WHERE email = ?";

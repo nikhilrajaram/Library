@@ -1,7 +1,10 @@
 package com.example.Library.Controller;
 
-import com.example.Library.DAO.RequestHelpDAOImpl;
+import com.example.Library.DAO.HelpRequestDAOImpl;
 import com.example.Library.Model.HelpRequest;
+import com.example.Library.Model.User;
+import com.example.Library.Util.LibrarianHelpObserver;
+import com.example.Library.Util.UserHelpObservable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,18 +19,19 @@ import java.util.Collection;
 public class RequestHelpController {
 
     @Autowired
-    private RequestHelpDAOImpl requestHelpDAO;
+    private HelpRequestDAOImpl requestHelpDAO;
 
     @RequestMapping(value = "/requestHelp")
-    public String requestHelp(Authentication auth, Model model){
-        model.addAttribute("request" , new HelpRequest(auth.getName(), null));
+    public String requestHelp(Model model){
+        model.addAttribute("request" , new HelpRequest());
         return "requestHelp";
     }
 
     @RequestMapping(value = "/requestHelp", method = RequestMethod.POST)
     public String handleRequestHelp(Authentication auth, @ModelAttribute HelpRequest request) {
-        request.setEmail(auth.getName());
-        requestHelpDAO.addHelpRequest(request);
+        User user = new User(auth.getName(), null, true);
+        request.setEmail(user.getEmail());
+        (new UserHelpObservable(user, request)).notifyObservers();
         return "requestSubmitted";
     }
 
@@ -43,8 +47,11 @@ public class RequestHelpController {
 
         if (authorities.contains((new SimpleGrantedAuthority("LIBRARIAN")))) {
             // user is librarian
-            // TODO: handle logic for displaying requests sent by subjects/observables
-            // return something
+            User librarian = new User(auth.getName(), null, true);
+            LibrarianHelpObserver librarianHelpObserver = new LibrarianHelpObserver(librarian);
+            // update model
+            librarianHelpObserver.update(model);
+            return "checkRequests-librarian";
         }
 
         // user is not librarian

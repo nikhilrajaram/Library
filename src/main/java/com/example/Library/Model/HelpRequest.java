@@ -1,15 +1,10 @@
 package com.example.Library.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import com.example.Library.Model.User;
-
-@Entity
 public class HelpRequest {
-
-    @Id
     private String email;
     private String content;
+
+    public HelpRequest() {}
 
     public HelpRequest(String email, String content){
         this.email = email;

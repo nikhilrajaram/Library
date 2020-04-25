@@ -1,48 +1,60 @@
 package com.example.Library.Util;
 
+import com.example.Library.DAO.HelpRequestDAOImpl;
+import com.example.Library.DAO.ObserverRelationDAOImpl;
 import com.example.Library.Model.HelpRequest;
+import com.example.Library.Model.ObserverRelation;
 import com.example.Library.Model.User;
-import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 
-@Repository
 public class UserHelpObservable implements Observable {
 
     private User user;
-    private String content;
-    private ArrayList<LibrarianHelpObserver> observers = new ArrayList<>();
+    private HelpRequest request;
 
-    public UserHelpObservable(){
+    // class not managed by spring => cannot inject => must instantiate by extracting bean from application context
+    HelpRequestDAOImpl helpRequestDAO = (HelpRequestDAOImpl) ApplicationContextUtils
+            .getApplicationContext()
+            .getBean("helpRequestDAO");
+    ObserverRelationDAOImpl observerRelationDAO = (ObserverRelationDAOImpl) ApplicationContextUtils
+            .getApplicationContext()
+            .getBean("observerRelationDAO");;
 
-    }
-
-    public UserHelpObservable(User user){
+    public UserHelpObservable(User user, HelpRequest request) {
         this.user = user;
+        this.request = request;
     }
 
     @Override
-    public void addObserver(LibrarianHelpObserver observer){
-        observers.add(observer);
+    public void addObserver(ObserverRelation relation) {
+        observerRelationDAO.addObserverRelation(relation);
     }
 
     @Override
-    public void removeObserver(LibrarianHelpObserver observer){
-        observers.remove(observer);
+    public void removeObserver(ObserverRelation relation) {
+        observerRelationDAO.removeObserverRelation(relation);
     }
 
-
     @Override
-    public void notifyObservers(){
-        for (LibrarianHelpObserver obs: observers){
-            obs.update(obs, this.content, this.user);
+    public void notifyObservers() {
+        if (!helpRequestDAO.addHelpRequest(request)) {
+            System.err.println("add help request error");
         }
     }
 
-    public void requestHelp(String content){
-        new HelpRequest(this.user, content);
-        this.content = content;
-        notifyObservers();
+    public User getUser() {
+        return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public HelpRequest getRequest() {
+        return request;
+    }
+
+    public void setRequest(HelpRequest request) {
+        this.request = request;
+    }
 }

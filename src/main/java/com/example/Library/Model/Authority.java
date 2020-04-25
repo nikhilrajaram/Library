@@ -1,8 +1,5 @@
 package com.example.Library.Model;
 
-import javax.persistence.Entity;
-
-@Entity
 public class Authority {
     private String email;
     private String authority;
@@ -13,7 +10,6 @@ public class Authority {
         this.email = email;
         this.authority = authority;
     }
-
 
     public String getEmail() {
         return email;

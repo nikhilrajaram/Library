@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>CheckRequest</title>
+    <title>Check Request</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="  sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -12,13 +12,28 @@
 </head>
 <body>
 <div th:replace="../static/html/navbar :: navbar-auth"></div>
-<div class="request-help-container">
+<div class="container">
     <div class="container" style="padding-top:10px;padding-bottom:5px;">
         <div class="float-left">
-            <h2>Help Requests</h2>
+            <h2>Check Requests</h2>
         </div>
     </div><br>
     <div class="border-top my-3" style></div>
+    <div class="container">
+        <div class="list-group" th:each="request : ${helpRequests}" style="width:100%">
+            <ul class="list-group list-group-horizontal" style="width:100%">
+                <li class="list-group-item" th:text="${request.getEmail()}" style="width:25%"></li>
+                <li class="list-group-item" th:text="${request.getContent()}" style="width:75%"></li>
+                <button type="button" class="btn btn-primary" th:data-email="|${request.getEmail()}|"
+                        th:onclick="window.open('mailto:' + this.getAttribute('data-email'))">↵</button>
+            </ul>
+        </div>
+    </div>
+    <script>
+        $(".list-group-item").each((i, x) => {
+            if (x.length > 250) { x.innerText = x.innerText.substring(0, 250) + '...' }
+        })
+    </script>
 </div>
 </body>
 </html>
