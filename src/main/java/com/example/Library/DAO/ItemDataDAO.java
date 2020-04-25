@@ -32,7 +32,9 @@ public interface ItemDataDAO {
      * @param item item to be checked
      * @return if item is available, return true; else false
      */
-    Boolean isAvailable(Item item);
+    Integer getnAvailable(Item item);
+
+    Boolean checkOutItem(Item item);
 
     /**
      * Get item by item id
