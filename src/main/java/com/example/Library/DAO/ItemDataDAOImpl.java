@@ -21,6 +21,10 @@ public class ItemDataDAOImpl implements ItemDataDAO {
     private final String DELETE_ITEM = "DELETE FROM items WHERE item_id = ?";
     private final String COUNT_ITEM = "SELECT n_available FROM items WHERE item_id = ?";
     private final String GET_ITEM_TYPE = "SELECT * FROM items where item_id = ?";
+    private final String UPDATE_N_AVAILABLE = "WITH new_quantities AS (SELECT n_available-1 new_n_available, " +
+            "n_checked_out+1 new_n_checked_out, item_id FROM items WHERE item_id = ?)\nUPDATE items SET n_available = " +
+            "(SELECT new_n_available from new_quantities), n_checked_out = (SELECT new_n_checked_out from " +
+            "new_quantities) WHERE item_id = (SELECT item_id from new_quantities)";
 
 
     @Autowired
@@ -91,15 +95,19 @@ public class ItemDataDAOImpl implements ItemDataDAO {
         }
     }
 
-    public Boolean isAvailable(Item item) {
+    public Integer getnAvailable(Item item) {
         Object[] args = new Object[1];
         args[0] = item.getItemId();
 
-        return template.query(COUNT_ITEM, args, (ResultSetExtractor<Boolean>) rs -> {
-            if (!rs.next()) return false;
-
-            return rs.getInt("n_available") > 0;
+        return template.query(COUNT_ITEM, args, (ResultSetExtractor<Integer>) rs -> {
+            if (!rs.next()) return null;
+            return rs.getInt("n_available");
         });
+    }
+
+    @Override
+    public Boolean checkOutItem(Item item) {
+        return template.update(UPDATE_N_AVAILABLE, item.getItemId()) == 1;
     }
 
     @Override
@@ -116,4 +124,5 @@ public class ItemDataDAOImpl implements ItemDataDAO {
                             rs.getBoolean("is_digital"));
         });
     }
+
 }
