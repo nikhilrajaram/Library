@@ -100,7 +100,7 @@ public class ItemDataDAOImpl implements ItemDataDAO {
         args[0] = item.getItemId();
 
         return template.query(COUNT_ITEM, args, (ResultSetExtractor<Integer>) rs -> {
-            if (!rs.next()) return 0;
+            if (!rs.next()) return null;
             return rs.getInt("n_available");
         });
     }
