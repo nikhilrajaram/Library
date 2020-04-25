@@ -109,4 +109,9 @@ public class HomeController {
     public String contactUs(){
       return "contactUs";
     }
+
+    @RequestMapping(value = "/AboutUs", method = RequestMethod.POST)
+    public String aboutUs(){
+        return "AboutUs";
+    }
 }
