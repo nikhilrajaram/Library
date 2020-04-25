@@ -18,6 +18,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class PhysicalItemController {
@@ -53,6 +54,7 @@ public class PhysicalItemController {
     @RequestMapping(value = "/checkOutPhysicalItem", method = RequestMethod.POST)
     public String handleCheckOutPhysicalItem(@ModelAttribute User user, @ModelAttribute Item item, Model model){
         Integer nAvailable = itemDataDAO.getnAvailable(item);
+        List<Record> overdueItemRecords = recordDAO.getOverdueItemRecordsByUser(user);
 
         if (nAvailable == null) {
             model.addAttribute("reason", String.format("Item with associated itemId %d does not exist.",
@@ -60,6 +62,10 @@ public class PhysicalItemController {
             return "failed-check-out";
         } else if (nAvailable == 0) {
             model.addAttribute("reason", "This item is out of stock.");
+            return "failed-check-out";
+        } else if (!overdueItemRecords.isEmpty()) {
+            model.addAttribute("reason", "User has overdue books.");
+            model.addAttribute("overdueItemRecords", overdueItemRecords);
             return "failed-check-out";
         }
 
