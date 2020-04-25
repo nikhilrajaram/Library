@@ -11,13 +11,14 @@
 
 </head>
 <body>
+<div th:replace="../static/html/navbar :: navbar-auth"></div>
 <div class="request-help-container">
-    <h2>Request Help</h2>
-    <form action="#" th:action="@{/checkRequests.html}" th:object="${librarianHelpService}" method="post" modelAttribute="Librarian">
-
-        <!-- View requests coming from userHelpServices -->
-
-    </form>
+    <div class="container" style="padding-top:10px;padding-bottom:5px;">
+        <div class="float-left">
+            <h2>Help Requests</h2>
+        </div>
+    </div><br>
+    <div class="border-top my-3" style></div>
 </div>
 </body>
 </html>
