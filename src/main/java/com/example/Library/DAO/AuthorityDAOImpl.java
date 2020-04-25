@@ -4,10 +4,12 @@ import com.example.Library.Model.Authority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository("authorityDAO")
 public class AuthorityDAOImpl implements AuthorityDAO {
     private final String GET_AUTHORITY = "SELECT * FROM authorities WHERE authority = ? ORDER BY RANDOM() LIMIT 1";
     private final String GET_N_AUTHORITIES = "SELECT * FROM authorities WHERE authority = ? ORDER BY RANDOM() LIMIT ?";

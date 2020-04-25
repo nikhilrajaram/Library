@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Repository("movieDAO")
 public class MovieDAOImpl implements MovieDAO {
     private final String INSERT_MOVIE = "INSERT INTO movies (item_id, title, release_date, runtime, genre, summary) " +
             "VALUES (?, ?, ?, ?, ?, ?)";

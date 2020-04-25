@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Repository("helpRequestDAO")
 public class HelpRequestDAOImpl implements HelpRequestDAO {
 
     private final String INSERT_REQUEST = "INSERT INTO help_requests (email, content) VALUES (?, ?)";

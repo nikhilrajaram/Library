@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Repository("itemDataDAO")
 public class ItemDataDAOImpl implements ItemDataDAO {
 
     private final String INSERT_ITEMNAME = "INSERT INTO items (item_id, type, n_available, n_checked_out, " +

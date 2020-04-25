@@ -5,10 +5,12 @@ import com.example.Library.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository("observerRelationDAO")
 public class ObserverRelationDAOImpl implements ObserverRelationDAO {
     private final String GET_RELATIONS_BY_OBSERVABLE = "SELECT * FROM observer_relations WHERE user_email = ?";
     private final String INSERT_RELATION = "INSERT INTO observer_relations (user_email, librarian_email) VALUES (?, ?)";
