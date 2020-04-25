@@ -47,3 +47,11 @@
 .bg-grey {
     background-color: #f6f6f6;
 }
+
+.check-out-item-container {
+    background-color: coral;
+    width:  350px;
+    margin: 25px auto;
+    border-radius: 10px;
+    padding: 20px;
+}
