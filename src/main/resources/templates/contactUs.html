@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<div th:replace="../static/html/navbar :: navbar"></div>
+<div th:replace="../static/html/navbar :: navbar-auth"></div>
 <form action="#" th:action="@{/contactUs}"  method="post">
     <div class="container-fluid bg-grey">
         <h2 class="text-center">CONTACT</h2>
@@ -34,7 +34,7 @@
                 <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
                 <div class="row">
                     <div class="col-sm-12 form-group">
-                        <button class="btn btn-default pull-right" type="submit" onclick="{window.location='/ContactSubmitted'}">Send</button>
+                        <button class="btn btn-success pull-right" type="submit" onclick="{window.location='/ContactSubmitted'}">Send</button>
                     </div>
                 </div>
             </div>

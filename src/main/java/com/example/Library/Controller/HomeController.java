@@ -105,12 +105,12 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping(value = "/contactUs", method = RequestMethod.POST)
+    @RequestMapping("/contactUs")
     public String contactUs(){
       return "contactUs";
     }
 
-    @RequestMapping(value = "/AboutUs", method = RequestMethod.POST)
+    @RequestMapping("/AboutUs")
     public String aboutUs(){
         return "AboutUs";
     }
