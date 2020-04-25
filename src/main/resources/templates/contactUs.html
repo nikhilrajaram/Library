@@ -11,100 +11,35 @@
 
 </head>
 <body>
-
+<div th:replace="../static/html/navbar :: navbar"></div>
 <form action="#" th:action="@{/contactUs}"  method="post">
-<section class="mb-4">
-
-
-    <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-
-
-    <p class="text-center w-responsive mx-auto mb-5">If you have any questions or concerns, contact us directly.</p>
-
-    <div class="row">
-
-
-        <div class="col-md-9 mb-md-0 mb-5">
-            <form id="contact-form" name="contact-form">
-
-
-                <div class="row">
-
-                    <!--Grid column-->
-                    <div class="col-md-6">
-                        <div class="md-form mb-0">
-                            <input type="text" id="name" name="name" class="form-control">
-                            <label for="name" class="">Name</label>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-md-6">
-                        <div class="md-form mb-0">
-                            <input type="text" id="email" name="email" class="form-control">
-                            <label for="email" class="">E-mail</label>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-
-                </div>
-                <!--Grid row-->
-
-                <!--Grid row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="md-form mb-0">
-                            <input type="text" id="subject" name="subject" class="form-control">
-                            <label for="subject" class="">Subject</label>
-                        </div>
-                    </div>
-                </div>
-                <!--Grid row-->
-
-                <!--Grid row-->
-                <div class="row">
-
-                    <!--Grid column-->
-                    <div class="col-md-12">
-
-                        <div class="md-form">
-                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
-                            <label for="message">Your message</label>
-                        </div>
-
-                    </div>
-                </div>
-                <!--Grid row-->
-
-            </form>
-
-            <div class="text-center text-md-left">
-                <a class="btn btn-primary" onclick="{window.location='/ContactSubmitted'}">Send</a>
+    <div class="container-fluid bg-grey">
+        <h2 class="text-center">CONTACT</h2>
+        <div class="row">
+            <div class="col-sm-5">
+                <p>Contact us and we will get back to you within 24 hours.</p>
+                <p><span class="glyphicon glyphicon-map-marker"></span> Boulder, CO, USA</p>
+                <p><span class="glyphicon glyphicon-envelope"></span> tuqa.alaithan@colorado.edu</p>
+                <p><span class="glyphicon glyphicon-envelope"></span> nikhil.rajaramn@colorado.edu</p>
             </div>
-            <div class="status"></div>
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                    </div>
+                </div>
+                <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <button class="btn btn-default pull-right" type="submit" onclick="{window.location='/ContactSubmitted'}">Send</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-md-3 text-center">
-            <ul class="list-unstyled mb-0">
-                <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                    <p>Boulder, CO 80303, USA</p>
-                </li>
-
-
-                <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                    <p>tuqa.alaithan@colorado.edu</p>
-                    <p>nikhil.rajaram@colorado.edu</p>
-                </li>
-            </ul>
-        </div>
-        <!--Grid column-->
-
     </div>
-
-</section>
 </form>
 
 </body>
