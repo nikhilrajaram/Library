@@ -14,11 +14,11 @@
 <div th:replace="../static/html/navbar :: navbar-auth"></div>
 <div class="check-out-item-container">
     <h2>Check out an item</h2>
-    <form action="#" th:action="@{/checkOutPhysicalItem}" th:object="${user}" method="post">
-        <div class="form-group">
+    <form action="#" th:action="@{/checkOutPhysicalItem}" method="post">
+        <div class="form-group" th:object="${user}">
             <input type="text" required class="form-control" id="user-email" placeholder="User Email Address" th:field="*{email}" />
         </div>
-        <div class="form-group">
+        <div class="form-group" th:object="${item}">
             <input type="text" required class="form-control" id="item-id" placeholder="Item ID" th:field="*{itemId}" />
         </div>
         <div class="form-group">
