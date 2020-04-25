@@ -11,8 +11,10 @@ public class LibrarianHelpObserver extends Observer {
 
     private User librarian;
 
-    @Autowired
-    HelpRequestDAOImpl helpRequestDAO;
+    // class not managed by spring => cannot inject => must instantiate by extracting bean from application context
+    HelpRequestDAOImpl helpRequestDAO = (HelpRequestDAOImpl) ApplicationContextUtils
+            .getApplicationContext()
+            .getBean("helpRequestDAO");
 
     public LibrarianHelpObserver() {}
 

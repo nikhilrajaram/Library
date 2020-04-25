@@ -5,22 +5,20 @@ import com.example.Library.DAO.ObserverRelationDAOImpl;
 import com.example.Library.Model.HelpRequest;
 import com.example.Library.Model.ObserverRelation;
 import com.example.Library.Model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 public class UserHelpObservable implements Observable {
 
     private User user;
     private HelpRequest request;
 
-    @Autowired
-    HelpRequestDAOImpl helpRequestDAO;
-
-    @Autowired
-    ObserverRelationDAOImpl observerRelationDAO;
-
-    public UserHelpObservable() {
-
-    }
+    // class not managed by spring => cannot inject => must instantiate by extracting bean from application context
+    HelpRequestDAOImpl helpRequestDAO = (HelpRequestDAOImpl) ApplicationContextUtils
+            .getApplicationContext()
+            .getBean("helpRequestDAO");
+    ObserverRelationDAOImpl observerRelationDAO = (ObserverRelationDAOImpl) ApplicationContextUtils
+            .getApplicationContext()
+            .getBean("observerRelationDAO");;
 
     public UserHelpObservable(User user, HelpRequest request) {
         this.user = user;
@@ -42,8 +40,6 @@ public class UserHelpObservable implements Observable {
         if (!helpRequestDAO.addHelpRequest(request)) {
             System.err.println("add help request error");
         }
-
-
     }
 
     public User getUser() {
