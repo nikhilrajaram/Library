@@ -35,11 +35,6 @@ public class RequestHelpController {
         return "requestSubmitted";
     }
 
-    @RequestMapping(value = "/requestSubmitted")
-    public String submitRequest(@ModelAttribute HelpRequest requestHelp){
-        // TODO: delete this it's unnecessary
-        return "home";
-    }
 
     @RequestMapping("/checkRequests")
     public String checkRequests(Authentication auth, Model model){
