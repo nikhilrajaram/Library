@@ -104,4 +104,9 @@ public class HomeController {
         userDataDAO.registerUser(user);
         return "login";
     }
+
+    @RequestMapping(value = "/contactUs", method = RequestMethod.POST)
+    public String contactUs(){
+      return "contactUs";
+    }
 }
