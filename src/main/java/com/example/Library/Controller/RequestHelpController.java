@@ -21,35 +21,53 @@ public class RequestHelpController {
     @Autowired
     private HelpRequestDAOImpl requestHelpDAO;
 
+    /** Map requestHelp */
     @RequestMapping(value = "/requestHelp")
     public String requestHelp(Model model){
+        /** Add attribute of HelpRequest */
         model.addAttribute("request" , new HelpRequest());
         return "requestHelp";
     }
 
+    /** Handling Request Help */
     @RequestMapping(value = "/requestHelp", method = RequestMethod.POST)
     public String handleRequestHelp(Authentication auth, @ModelAttribute HelpRequest request) {
+
+        /** Get user info
+         * bind HelpRequest with user email */
         User user = new User(auth.getName(), null, true);
         request.setEmail(user.getEmail());
+
+        /** Implementing Observer Pattern
+         * Assign user for UserHelpObservable
+         * Notify librarians of HelpRequest from user */
         (new UserHelpObservable(user, request)).notifyObservers();
+
+        /** user's request submitted successfully */
         return "requestSubmitted";
     }
 
 
+    /** Map checkRequests */
     @RequestMapping("/checkRequests")
     public String checkRequests(Authentication auth, Model model){
         Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
 
+        /** Check if user is a librarian */
         if (authorities.contains((new SimpleGrantedAuthority("LIBRARIAN")))) {
-            // user is librarian
+            /** User is librarian; authorized
+             * Implementing Observer Pattern
+             * Assign librarian for LibrarianHelpObserver */
             User librarian = new User(auth.getName(), null, true);
             LibrarianHelpObserver librarianHelpObserver = new LibrarianHelpObserver(librarian);
-            // update model
+
+            /** Update model to display observable's request */
             librarianHelpObserver.update(model);
             return "checkRequests-librarian";
         }
 
-        // user is not librarian
+        /** User is not librarian; unauthorized */
+
         // TODO: handle logic for displaying responses from observer(s)
 
         return "checkRequests";
