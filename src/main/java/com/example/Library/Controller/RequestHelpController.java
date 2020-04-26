@@ -67,7 +67,8 @@ public class RequestHelpController {
         }
 
         /** User is not librarian; unauthorized */
-
+            User user = new User(auth.getName(), null, true);
+            model.addAttribute("request", requestHelpDAO.getRequestsForUser(user));
         // TODO: handle logic for displaying responses from observer(s)
 
         return "checkRequests";
