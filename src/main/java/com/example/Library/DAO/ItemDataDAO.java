@@ -34,8 +34,18 @@ public interface ItemDataDAO {
      */
     Integer getnAvailable(Item item);
 
+    /**
+     * Query item database for checkout and decrement item availability
+     * @param item item to be checked out
+     * @return if checkout is successful return true, else return false
+     */
     Boolean checkOutItem(Item item);
 
+    /**
+     * Return item and increment item availability
+     * @param item item to be returned
+     * @return if return is successful return true, else return false
+     */
     Boolean returnItem(Item item);
 
     /**
