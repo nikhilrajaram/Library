@@ -1,5 +1,9 @@
 package com.example.Library.Model;
 
+/**
+ * This class is used to associate each User (Observable) with
+ * a librarian (Observer)
+ */
 public class ObserverRelation {
     private String userEmail;
     private String librarianEmail;
