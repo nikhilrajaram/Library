@@ -21,8 +21,12 @@ public class ItemDataDAOImpl implements ItemDataDAO {
     private final String DELETE_ITEM = "DELETE FROM items WHERE item_id = ?";
     private final String COUNT_ITEM = "SELECT n_available FROM items WHERE item_id = ?";
     private final String GET_ITEM_TYPE = "SELECT * FROM items where item_id = ?";
-    private final String UPDATE_N_AVAILABLE = "WITH new_quantities AS (SELECT n_available-1 new_n_available, " +
-            "n_checked_out+1 new_n_checked_out, item_id FROM items WHERE item_id = ?)\nUPDATE items SET n_available = " +
+    private final String UPDATE_N_AVAILABLE_CHECKOUT = "WITH new_quantities AS (SELECT n_available-1 " +
+            "new_n_available, n_checked_out+1 new_n_checked_out, item_id FROM items WHERE item_id = ?)\nUPDATE items " +
+            "SET n_available = (SELECT new_n_available from new_quantities), n_checked_out = (SELECT " +
+            "new_n_checked_out from new_quantities) WHERE item_id = (SELECT item_id from new_quantities)";
+    private final String UPDATE_N_AVAILABLE_RETURN = "WITH new_quantities AS (SELECT n_available+1 new_n_available, " +
+            "n_checked_out-1 new_n_checked_out, item_id FROM items WHERE item_id = ?) UPDATE items SET n_available = " +
             "(SELECT new_n_available from new_quantities), n_checked_out = (SELECT new_n_checked_out from " +
             "new_quantities) WHERE item_id = (SELECT item_id from new_quantities)";
 
@@ -107,7 +111,12 @@ public class ItemDataDAOImpl implements ItemDataDAO {
 
     @Override
     public Boolean checkOutItem(Item item) {
-        return template.update(UPDATE_N_AVAILABLE, item.getItemId()) == 1;
+        return template.update(UPDATE_N_AVAILABLE_CHECKOUT, item.getItemId()) == 1;
+    }
+
+    @Override
+    public Boolean returnItem(Item item) {
+        return template.update(UPDATE_N_AVAILABLE_RETURN, item.getItemId()) == 1;
     }
 
     @Override
