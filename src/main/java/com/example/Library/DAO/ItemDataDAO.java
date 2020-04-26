@@ -36,6 +36,8 @@ public interface ItemDataDAO {
 
     Boolean checkOutItem(Item item);
 
+    Boolean returnItem(Item item);
+
     /**
      * Get item by item id
      * @param itemId item id of item in consideration

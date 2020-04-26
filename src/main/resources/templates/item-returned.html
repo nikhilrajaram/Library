@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Return item</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="../static/html/navbar :: navbar-auth"></div>
+<div class="container">
+    <div class="alert alert-info" th:if="${status} == 'checkNotes'">
+        <p th:text="${notes}"></p>
+    </div>
+    <div class="alert alert-danger" th:if="${status} == 'overdue'">
+        <p th:text="${notes}"></p>
+    </div>
+    <button class="btn btn-primary" type="button" onclick="{window.location='/'}">Go to home page</button>
+    <button class="btn btn-secondary" type="button" onclick="{window.location='/returnPhysicalItem'}">Return another item</button>
+</div>
+</body>
+</html>

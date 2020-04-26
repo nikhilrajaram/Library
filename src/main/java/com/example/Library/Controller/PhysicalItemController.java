@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -76,4 +77,38 @@ public class PhysicalItemController {
         return "item-checked-out";
     }
 
+    @RequestMapping(value = "/returnPhysicalItem")
+    public String returnPhysicalItem(Authentication auth, Model model){
+        Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+        if (authorities.contains((new SimpleGrantedAuthority("LIBRARIAN")))) {
+            // User is librarian
+            model.addAttribute("user", new User());
+            model.addAttribute("item", new Item());
+            return "returnPhysicalItem";
+        }
+
+        model.addAttribute("books", bookDAO.getRandomBooks(HomeController.N_CARDS_HOMEPAGE));
+        model.addAttribute("movies", movieDAO.getRandomMovies(HomeController.N_CARDS_HOMEPAGE));
+
+        return "home-auth";
+    }
+
+    @RequestMapping(value = "/returnPhysicalItem", method = RequestMethod.POST)
+    public String handleReturnPhysicalItem(@ModelAttribute User user, @ModelAttribute Item item, Model model){
+        Record correspondingRecord = recordDAO.getRecordByItem(item);
+        itemDataDAO.returnItem(item);
+
+        if (correspondingRecord == null) {
+            model.addAttribute("status", "checkNotes");
+            model.addAttribute("notes", "There is no record of this item being checked out by this user");
+            return "item-returned";
+        } else if (Calendar.getInstance().getTimeInMillis() > correspondingRecord.getReturnByDate().getTime()) {
+            model.addAttribute("status", "overdue");
+            model.addAttribute("notes", "This item is overdue. Collect a fine from the user.");
+            return "item-returned";
+        }
+
+        model.addAttribute("status", "success");
+        return "item-returned";
+    }
 }
