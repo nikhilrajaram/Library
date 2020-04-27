@@ -66,10 +66,10 @@ public class RequestHelpController {
             return "checkRequests-librarian";
         }
 
-        /** User is not librarian; unauthorized */
+        /** User is not librarian; unauthorized
+         *  Display User's previous requests */
             User user = new User(auth.getName(), null, true);
             model.addAttribute("request", requestHelpDAO.getRequestsForUser(user));
-        // TODO: handle logic for displaying responses from observer(s)
 
         return "checkRequests";
     }
