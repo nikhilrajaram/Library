@@ -18,7 +18,11 @@ public class UserHelpObservable implements Observable {
             .getBean("helpRequestDAO");
     ObserverRelationDAOImpl observerRelationDAO = (ObserverRelationDAOImpl) ApplicationContextUtils
             .getApplicationContext()
-            .getBean("observerRelationDAO");;
+            .getBean("observerRelationDAO");
+
+    public UserHelpObservable(User user) {
+        this.user = user;
+    }
 
     public UserHelpObservable(User user, HelpRequest request) {
         this.user = user;
