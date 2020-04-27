@@ -13,8 +13,8 @@ import java.util.List;
 
 @Repository("recordDAO")
 public class RecordDAOImpl implements RecordDAO {
-    private final String INSERT_RECORD = "INSERT INTO records (user_email, item_id, check_out_date, return_by_date) " +
-            "VALUES (?, ?, ?, ?)";
+    private final String INSERT_RECORD = "INSERT INTO records (user_email, item_id, check_out_date, return_by_date, " +
+            "is_returned) VALUES (?, ?, ?, ?, ?)";
     private final String EDIT_RECORD = "UPDATE records SET is_returned = TRUE WHERE user_email = ? AND item_id = ?";
     private final String GET_OVERDUE_RECORDS = "SELECT * FROM records WHERE NOW() > return_by_date and user_email " +
             "= ? and is_returned = false";
@@ -26,7 +26,7 @@ public class RecordDAOImpl implements RecordDAO {
     @Override
     public Boolean insertRecord(Record record) {
         Object[] args = new Object[] { record.getUserEmail(), record.getItemId(),
-                record.getCheckOutDate(), record.getReturnByDate() };
+                record.getCheckOutDate(), record.getReturnByDate(), record.getReturned() };
         return template.update(INSERT_RECORD, args) == 1;
     }
 
