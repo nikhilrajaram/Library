@@ -133,7 +133,11 @@ public class PhysicalItemController {
             model.addAttribute("status", "checkNotes");
             model.addAttribute("notes", "There is no record of this item being checked out by this user");
             return "item-returned";
-        } else if (Calendar.getInstance().getTimeInMillis() > correspondingRecord.getReturnByDate().getTime()) {
+        }
+
+        recordDAO.editRecordForReturned(user, item);
+
+        if (Calendar.getInstance().getTimeInMillis() > correspondingRecord.getReturnByDate().getTime()) {
             /** if item is returned late, alert librarian */
 
             model.addAttribute("status", "overdue");
