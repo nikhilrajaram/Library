@@ -69,7 +69,7 @@ public class RequestHelpController {
         /** User is not librarian; unauthorized
          *  Display User's previous requests */
             User user = new User(auth.getName(), null, true);
-            model.addAttribute("request", requestHelpDAO.getRequestsForUser(user));
+            model.addAttribute("helpRequests", requestHelpDAO.getRequestsForUser(user));
 
         return "checkRequests";
     }
