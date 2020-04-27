@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface AuthorityDAO {
 
-    /** Get one authority by authority type
+    /** Get one random authority by authority type
      * @param authorityType type of authorization
      * @return  Authority */
     Authority getAuthorityByAuthorityType(String authorityType);
 
-    /** Get n authorities by authority type
+    /** Get n random authorities by authority type
      * @param authorityType type of authorization
      * @param n number of authorities to return
      * @return  List of n authorities */
