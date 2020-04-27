@@ -1,9 +1,13 @@
 package com.example.Library.Controller;
 
+import com.example.Library.DAO.AuthorityDAOImpl;
 import com.example.Library.DAO.BookDAOImpl;
 import com.example.Library.DAO.MovieDAOImpl;
 import com.example.Library.DAO.UserDataDAOImpl;
+import com.example.Library.Model.Authority;
+import com.example.Library.Model.ObserverRelation;
 import com.example.Library.Model.User;
+import com.example.Library.Util.UserHelpObservable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,9 +22,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 public class HomeController {
     static final Integer N_CARDS_HOMEPAGE = 4;
+    static final String LIBRARIAN_AUTHORY = "LIBRARIAN";
+    static final Integer N_LIBRARIANS_PER_USER = 3;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -33,6 +41,9 @@ public class HomeController {
 
     @Autowired
     private MovieDAOImpl movieDAO;
+
+    @Autowired
+    private AuthorityDAOImpl authorityDAO;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -102,6 +113,14 @@ public class HomeController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
         userDataDAO.registerUser(user);
+
+        UserHelpObservable observable = new UserHelpObservable(user);
+
+        for (Authority authority : authorityDAO.getnAuthoritiesByAuthorityType(LIBRARIAN_AUTHORY,
+                N_LIBRARIANS_PER_USER)) {
+            observable.addObserver(new ObserverRelation(user.getEmail(), authority.getEmail()));
+        }
+
         return "login";
     }
 
