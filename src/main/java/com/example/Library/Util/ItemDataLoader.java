@@ -19,6 +19,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Loader class to insert data into the books/movies/items table (for use only once)
+ */
 public class ItemDataLoader {
     private static final Character COMMA_DELIMETER = ',';
 
