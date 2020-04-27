@@ -11,6 +11,7 @@ public class Record {
     private Integer itemId;
     private Date checkOutDate;
     private Date returnByDate;
+    private Boolean isReturned;
 
     public Record() {}
 
@@ -21,13 +22,15 @@ public class Record {
         this.checkOutDate = new java.sql.Date(dateCalendar.getTime().getTime());
         dateCalendar.add(Calendar.DAY_OF_YEAR, CHECK_OUT_LENGTH);
         this.returnByDate = new java.sql.Date(dateCalendar.getTime().getTime());
+        this.isReturned = false;
     }
 
-    public Record(String userEmail, Integer itemId, Date checkOutDate, Date returnByDate) {
+    public Record(String userEmail, Integer itemId, Date checkOutDate, Date returnByDate, Boolean isReturned) {
         this.userEmail = userEmail;
         this.itemId = itemId;
         this.checkOutDate = checkOutDate;
         this.returnByDate = returnByDate;
+        this.isReturned = isReturned;
     }
 
     public String getUserEmail() {
@@ -60,5 +63,13 @@ public class Record {
 
     public void setReturnByDate(Date returnByDate) {
         this.returnByDate = returnByDate;
+    }
+
+    public Boolean getReturned() {
+        return isReturned;
+    }
+
+    public void setReturned(Boolean returned) {
+        isReturned = returned;
     }
 }
