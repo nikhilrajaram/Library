@@ -15,7 +15,8 @@ import java.util.List;
 public class RecordDAOImpl implements RecordDAO {
     private final String INSERT_RECORD = "INSERT INTO records (user_email, item_id, check_out_date, return_by_date) " +
             "VALUES (?, ?, ?, ?)";
-    private final String GET_OVERDUE_RECORDS = "SELECT * FROM records WHERE NOW() > return_by_date and user_email = ?";
+    private final String GET_OVERDUE_RECORDS = "SELECT * FROM records WHERE NOW() > return_by_date and user_email " +
+            "= ? and is_returned = false";
     private final String GET_ITEM = "SELECT * FROM records WHERE item_id = ?";
 
     @Autowired
@@ -37,7 +38,8 @@ public class RecordDAOImpl implements RecordDAO {
                 records.add(new Record(rs.getString("user_email"),
                                        rs.getInt("item_id"),
                                        rs.getDate("check_out_date"),
-                                       rs.getDate("return_by_date")));
+                                       rs.getDate("return_by_date"),
+                                       rs.getBoolean("is_returned")));
             }
             return records;
         });
@@ -51,7 +53,8 @@ public class RecordDAOImpl implements RecordDAO {
             return new Record(rs.getString("user_email"),
                               rs.getInt("item_id"),
                               rs.getDate("check_out_date"),
-                              rs.getDate("return_by_date"));
+                              rs.getDate("return_by_date"),
+                              rs.getBoolean("is_returned"));
         });
     }
 }
